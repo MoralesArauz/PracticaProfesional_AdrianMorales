@@ -53,7 +53,7 @@ namespace Logica.Models
         {
             throw new System.Exception("Not implemented");
         }
-        public DataTable Listar()
+        public DataTable Listar(bool VerActivo = true)
         {
             throw new System.Exception("Not implemented");
         }

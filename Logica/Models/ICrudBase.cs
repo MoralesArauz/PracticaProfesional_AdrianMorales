@@ -13,6 +13,6 @@ namespace Logica.Models
         bool Agregar();
         bool Modificar();
         bool Eliminar();
-        DataTable Listar();
+        DataTable Listar(bool VerActivos = true);
     }
 }

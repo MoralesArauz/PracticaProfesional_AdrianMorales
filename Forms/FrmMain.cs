@@ -13,6 +13,7 @@ namespace Esperanza.Forms
 {
     public partial class FrmMain : Form
     {
+        
         public FrmMain()
         {
             InitializeComponent();
@@ -47,6 +48,43 @@ namespace Esperanza.Forms
             {
                 MessageBox.Show("Error de Conexion");
             }
+        }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Seguro que desea salir?","Saliendo del Sistema", MessageBoxButtons.OKCancel) == DialogResult.OK )
+                Application.Exit(); 
+        }
+
+        private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
+            // De lo contrario se muestra.
+            if (Commons.ObjetosGlobales.FormUsuarioGestion.Visible)
+            {
+                Commons.ObjetosGlobales.FormUsuarioGestion.BringToFront();
+            }
+            else
+            {
+                // Reinicia el formulario por si se ha cerrado anteriormente.
+                Commons.ObjetosGlobales.FormUsuarioGestion = new Forms.FrmUsuarioGestion(this);
+
+                Commons.ObjetosGlobales.FormUsuarioGestion.Show();
+
+            }
+        }
+
+        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserControl ControlUsuarios = new Controls.CtrlUsuarios();
+            PnlContenedor.Controls.Clear();
+            ControlUsuarios.Dock = DockStyle.Fill;
+            PnlContenedor.Controls.Add(ControlUsuarios);
         }
     }
 }

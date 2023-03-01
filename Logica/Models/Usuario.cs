@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ namespace Logica.Models
     {
         // Atributos de la clase
         public int ID_Usuario { get; set; }
-        public string Cedula { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Correo { get; set; }
@@ -23,16 +23,18 @@ namespace Logica.Models
         private Ingreso[] ingresos;
         private Factura[] factura;
 
-        private Rol_Usuario rol_UsuarioID_Rol_Usuario;
+        public Rol_Usuario MiRol { get; set; }
 
-        public Usuario() { }
+        public Usuario() 
+        {
+            MiRol = new Rol_Usuario();
+        }
 
-        public Usuario(int iD_Usuario, string cedula, string nombre, string apellido, string correo, 
+        public Usuario(int iD_Usuario, string nombre, string apellido, string correo, 
             string telefono, string contrasenia, string direccion, bool estado, Ingreso[] ingresos, 
             Factura[] factura, Rol_Usuario rol_UsuarioID_Rol_Usuario)
         {
             ID_Usuario = iD_Usuario;
-            Cedula = cedula;
             Nombre = nombre;
             Apellido = apellido;
             Correo = correo;
@@ -42,12 +44,32 @@ namespace Logica.Models
             Estado = estado;
             this.ingresos = ingresos;
             this.factura = factura;
-            this.rol_UsuarioID_Rol_Usuario = rol_UsuarioID_Rol_Usuario;
+            MiRol = rol_UsuarioID_Rol_Usuario;
         }
 
         public bool Agregar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Nombre", Nombre));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Apellido", Apellido));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Correo", Correo));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Telefono", Telefono));
+            // La contraseña debe de encriptarse
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Contrasenia", Contrasenia));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Direccion", Direccion));
+            // Debemos enviar el valor del IDRol por medio de la composición
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@IDRol", MiRol.IDRol));
+
+            // Se ejecuta el procedimiento almacenado
+            int resultado = MiCnn.DMLUpdateDeleteInsert("SPUsuarioAgregar");
+
+            if (resultado > 0)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public bool Modificar()
         {
@@ -65,13 +87,33 @@ namespace Logica.Models
         {
             throw new System.Exception("Not implemented");
         }
-        public DataTable Listar()
+        public DataTable Listar(bool VerActivo = true )
         {
-            throw new System.Exception("Not implemented");
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@VerActivos", VerActivo));
+            R = MiCnn.DMLSelect("SPUsuariosListar");
+            return R;
         }
         private bool VerificarCredenciales(ref string correo, ref string contrasenia)
         {
             throw new System.Exception("Not implemented");
+        }
+
+        public bool ConsultarPorEmail()
+        {
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+
+            //Asigna el valor del ID para hacer la búsqueda en la BD 
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@EMAIL", Correo));
+
+            DataTable retorno = MiCnn.DMLSelect("SPUsuarioConsultarPorEmail");
+            if (retorno != null && retorno.Rows.Count > 0)
+            {
+                R = true;
+            }
+            return R;
         }
     }
 }

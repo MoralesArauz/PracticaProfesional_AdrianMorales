@@ -54,7 +54,7 @@ namespace Logica.Models
             throw new NotImplementedException();
         }
 
-        public DataTable Listar()
+        public DataTable Listar(bool VerActivo = true)
         {
             throw new NotImplementedException();
         }
