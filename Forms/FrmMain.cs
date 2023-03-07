@@ -87,8 +87,18 @@ namespace Esperanza.Forms
         {
             UserControl ControlUsuarios = new Controls.CtrlUsuarios();
             PnlContenedor.Controls.Clear();
+            
             ControlUsuarios.Dock = DockStyle.Fill;
             PnlContenedor.Controls.Add(ControlUsuarios);
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserControl ControlClientes = new Controls.CtrlClientes();
+            PnlContenedor.Controls.Clear();
+            
+            ControlClientes.Dock = DockStyle.Fill;
+            PnlContenedor.Controls.Add(ControlClientes);
         }
     }
 }

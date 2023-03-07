@@ -62,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\ObjetosGlobales.cs" />
+    <Compile Include="Controls\CtrlClientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlClientes.Designer.cs">
+      <DependentUpon>CtrlClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CtrlUsuarios.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\CtrlClientes.resx">
+      <DependentUpon>CtrlClientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtrlUsuarios.resx">
       <DependentUpon>CtrlUsuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buscar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

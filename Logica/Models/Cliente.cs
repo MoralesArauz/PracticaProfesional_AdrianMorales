@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,28 +10,10 @@ namespace Logica.Models
 {
     public class Cliente : ICrudBase
     {
-        public Cliente() { }
-
-        public Cliente(int iD_Cliente, string cedula, string nombre, string apellido, string direccion, string telefono_1, string telefono_2, 
-            double balance, bool estado, DateTime fecha_Creacion, Categoria_Cliente categoria_ClienteID_Categoria_Cliente, 
-            Cliente_Metodo_Pago[] cliente_Metodo_Pago = null, Factura[] factura = null)
+        public Cliente() 
         {
-            ID_Cliente = iD_Cliente;
-            Cedula = cedula;
-            Nombre = nombre;
-            Apellido = apellido;
-            Direccion = direccion;
-            Telefono_1 = telefono_1;
-            Telefono_2 = telefono_2;
-            Balance = balance;
-            Estado = estado;
-            Fecha_Creacion = fecha_Creacion;
-            Categoria_ClienteID_Categoria_Cliente = categoria_ClienteID_Categoria_Cliente;
-            this.cliente_Metodo_Pago = cliente_Metodo_Pago;
-            this.factura = factura;
+            MiCategoria = new Categoria_Cliente();
         }
-
-
 
         // Atributos
         public int ID_Cliente { get;set; }
@@ -43,7 +26,7 @@ namespace Logica.Models
         public double Balance { get; set; } = 0;
         public bool Estado { get; set; }
         public DateTime Fecha_Creacion { get; set; }
-        public Categoria_Cliente Categoria_ClienteID_Categoria_Cliente { get; set; }
+        public Categoria_Cliente MiCategoria { get; set; }
         public bool Agregar()
         {
             throw new NotImplementedException();
@@ -74,7 +57,11 @@ namespace Logica.Models
         }
         public DataTable Listar(bool VerActivo = true)
         {
-            throw new System.Exception("Not implemented");
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@VerActivos", VerActivo));
+            R = MiCnn.DMLSelect("SPClientesListar");
+            return R;
         }
         public bool ConsultarBalanceCliente()
         {

@@ -42,7 +42,6 @@ namespace Esperanza.Forms
 
         private void LlenarFormulario()
         {
-            Console.WriteLine("Este es el IDRol de Llenar Formulario " + MiUsuarioLocal.Nombre + ": " + MiUsuarioLocal.MiRol.IDRol);
             TxtNombre.Text = MiUsuarioLocal.Nombre;
             TxtApellidos.Text = MiUsuarioLocal.Apellido;
             TxtTelefono1.Text = MiUsuarioLocal.Telefono;
@@ -209,7 +208,6 @@ namespace Esperanza.Forms
                     string contraseniaEncryptada = myCrypto.EncriptarEnUnSentido(TxtContrasenia.Text.Trim());
                     MiUsuarioLocal.Contrasenia = contraseniaEncryptada;
                     contraseniaValida = true;
-                    //MessageBox.Show("Esta es la contrasenia Encriptada " + contraseniaEncryptada);
                 }
                 else
                 {
