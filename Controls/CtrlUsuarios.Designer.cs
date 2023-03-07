@@ -41,6 +41,8 @@
             this.CCorreo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CTelefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CRol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvListaUsuarios)).BeginInit();
@@ -64,6 +66,7 @@
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -71,6 +74,7 @@
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // permisosToolStripMenuItem
             // 
@@ -100,6 +104,7 @@
             this.CheckBoxVerActivos.TabIndex = 2;
             this.CheckBoxVerActivos.Text = "Activos";
             this.CheckBoxVerActivos.UseVisualStyleBackColor = true;
+            this.CheckBoxVerActivos.Click += new System.EventHandler(this.CheckBoxVerActivos_Click);
             // 
             // TxtBuscar
             // 
@@ -130,7 +135,9 @@
             this.CNombre,
             this.CCorreo,
             this.CTelefono,
-            this.CRol});
+            this.CRol,
+            this.CID,
+            this.CEstado});
             this.DgvListaUsuarios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DgvListaUsuarios.Location = new System.Drawing.Point(0, 91);
             this.DgvListaUsuarios.MultiSelect = false;
@@ -141,6 +148,8 @@
             this.DgvListaUsuarios.Size = new System.Drawing.Size(818, 381);
             this.DgvListaUsuarios.TabIndex = 3;
             this.DgvListaUsuarios.VirtualMode = true;
+            this.DgvListaUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaUsuarios_CellClick);
+            this.DgvListaUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaUsuarios_CellDoubleClick);
             // 
             // CNombre
             // 
@@ -172,6 +181,22 @@
             this.CRol.HeaderText = "Rol de Usuario";
             this.CRol.Name = "CRol";
             this.CRol.ReadOnly = true;
+            // 
+            // CID
+            // 
+            this.CID.DataPropertyName = "ID";
+            this.CID.HeaderText = "ID";
+            this.CID.Name = "CID";
+            this.CID.ReadOnly = true;
+            this.CID.Visible = false;
+            // 
+            // CEstado
+            // 
+            this.CEstado.DataPropertyName = "Estado";
+            this.CEstado.HeaderText = "Estado";
+            this.CEstado.Name = "CEstado";
+            this.CEstado.ReadOnly = true;
+            this.CEstado.Visible = false;
             // 
             // CtrlUsuarios
             // 
@@ -208,5 +233,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CCorreo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTelefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn CRol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
     }
 }

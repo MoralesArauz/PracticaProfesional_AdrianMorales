@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Esperanza.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace Esperanza
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.FrmMain());
+            FrmLogin frmLogin = new FrmLogin();
+            frmLogin.Show();
+            Application.Run();
         }
     }
 }

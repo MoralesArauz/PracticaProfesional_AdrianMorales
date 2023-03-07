@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmUsuarioGestion));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lblContrasenia = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblConfirmar = new System.Windows.Forms.Label();
+            this.lblConfContr = new System.Windows.Forms.Label();
             this.TxtNombre = new System.Windows.Forms.TextBox();
             this.TxtApellidos = new System.Windows.Forms.TextBox();
             this.TxtCorreo = new System.Windows.Forms.TextBox();
@@ -46,7 +47,7 @@
             this.TxtDireccion = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.CbRol = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.CheckBoxActivo = new System.Windows.Forms.CheckBox();
             this.picBoxConfirContrasenia = new System.Windows.Forms.PictureBox();
             this.picBoxContrasenia = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -108,15 +109,15 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Telefono:";
             // 
-            // label8
+            // lblContrasenia
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(12, 284);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 20);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Contraseña:";
+            this.lblContrasenia.AutoSize = true;
+            this.lblContrasenia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContrasenia.Location = new System.Drawing.Point(12, 284);
+            this.lblContrasenia.Name = "lblContrasenia";
+            this.lblContrasenia.Size = new System.Drawing.Size(96, 20);
+            this.lblContrasenia.TabIndex = 10;
+            this.lblContrasenia.Text = "Contraseña:";
             // 
             // label9
             // 
@@ -128,25 +129,25 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "Dirección:";
             // 
-            // label10
+            // lblConfirmar
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(12, 314);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(78, 20);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Confirmar";
+            this.lblConfirmar.AutoSize = true;
+            this.lblConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmar.Location = new System.Drawing.Point(12, 314);
+            this.lblConfirmar.Name = "lblConfirmar";
+            this.lblConfirmar.Size = new System.Drawing.Size(78, 20);
+            this.lblConfirmar.TabIndex = 12;
+            this.lblConfirmar.Text = "Confirmar";
             // 
-            // label11
+            // lblConfContr
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(12, 334);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(96, 20);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Contraseña:";
+            this.lblConfContr.AutoSize = true;
+            this.lblConfContr.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfContr.Location = new System.Drawing.Point(12, 334);
+            this.lblConfContr.Name = "lblConfContr";
+            this.lblConfContr.Size = new System.Drawing.Size(96, 20);
+            this.lblConfContr.TabIndex = 13;
+            this.lblConfContr.Text = "Contraseña:";
             // 
             // TxtNombre
             // 
@@ -227,17 +228,19 @@
             this.CbRol.Size = new System.Drawing.Size(160, 21);
             this.CbRol.TabIndex = 26;
             this.CbRol.SelectedIndexChanged += new System.EventHandler(this.CbRol_SelectedIndexChanged);
+            this.CbRol.SelectionChangeCommitted += new System.EventHandler(this.CbRol_SelectionChangeCommitted);
             // 
-            // checkBox1
+            // CheckBoxActivo
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(289, 376);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(71, 24);
-            this.checkBox1.TabIndex = 27;
-            this.checkBox1.Text = "Activo";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.CheckBoxActivo.AutoSize = true;
+            this.CheckBoxActivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CheckBoxActivo.Location = new System.Drawing.Point(289, 376);
+            this.CheckBoxActivo.Name = "CheckBoxActivo";
+            this.CheckBoxActivo.Size = new System.Drawing.Size(71, 24);
+            this.CheckBoxActivo.TabIndex = 27;
+            this.CheckBoxActivo.Text = "Activo";
+            this.CheckBoxActivo.UseVisualStyleBackColor = true;
+            this.CheckBoxActivo.CheckedChanged += new System.EventHandler(this.CheckBoxActivo_CheckedChanged);
             // 
             // picBoxConfirContrasenia
             // 
@@ -317,7 +320,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(550, 540);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.CheckBoxActivo);
             this.Controls.Add(this.CbRol);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.picBoxConfirContrasenia);
@@ -329,10 +332,10 @@
             this.Controls.Add(this.TxtCorreo);
             this.Controls.Add(this.TxtApellidos);
             this.Controls.Add(this.TxtNombre);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.lblConfContr);
+            this.Controls.Add(this.lblConfirmar);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblContrasenia);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -342,6 +345,7 @@
             this.Controls.Add(this.btnGuargar);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmUsuarioGestion";
@@ -366,10 +370,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblContrasenia;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblConfirmar;
+        private System.Windows.Forms.Label lblConfContr;
         private System.Windows.Forms.TextBox TxtNombre;
         private System.Windows.Forms.TextBox TxtApellidos;
         private System.Windows.Forms.TextBox TxtCorreo;
@@ -381,6 +385,6 @@
         private System.Windows.Forms.PictureBox picBoxConfirContrasenia;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox CbRol;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox CheckBoxActivo;
     }
 }

@@ -73,11 +73,58 @@ namespace Logica.Models
         }
         public bool Modificar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Usuario));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Nombre", Nombre));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Apellido", Apellido));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Correo", Correo));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Telefono", Telefono));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Direccion", Direccion));
+            // Debemos enviar el valor del IDRol por medio de la composición
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@IDRol", MiRol.IDRol));
+            int resultado = MiCnn.DMLUpdateDeleteInsert("SPUsuarioEditar");
+
+            if (resultado > 0)
+            {
+                R = true;
+            }
+            return R;
         }
+
+        // Inactiva al usuario
         public bool Eliminar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", this.ID_Usuario));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPUsuarioEliminar");
+
+            if (retorno == 1)
+            {
+                R = true;
+            }
+
+            return R;
+        }
+
+        public bool Activar()
+        {
+            bool R = false;
+
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", this.ID_Usuario));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPUsuarioActivar");
+
+            if (retorno == 1)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public Usuario ConsultarPorID()
         {
@@ -95,10 +142,6 @@ namespace Logica.Models
             R = MiCnn.DMLSelect("SPUsuariosListar");
             return R;
         }
-        private bool VerificarCredenciales(ref string correo, ref string contrasenia)
-        {
-            throw new System.Exception("Not implemented");
-        }
 
         public bool ConsultarPorEmail()
         {
@@ -115,5 +158,81 @@ namespace Logica.Models
             }
             return R;
         }
+
+        public Usuario Consultar()
+        {
+            Usuario R = new Usuario();
+            Conexion MiCnn = new Conexion();
+
+            //Asigna el valor del ID para hacer la búsqueda en la BD 
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Usuario));
+
+            DataTable retorno = MiCnn.DMLSelect("SPUsuarioConsultar");
+            if (retorno != null && retorno.Rows.Count > 0)
+            {
+                DataRow Fila = retorno.Rows[0];
+
+                R.ID_Usuario = Convert.ToInt32(Fila["ID"]); ;
+                R.Nombre = Convert.ToString(Fila["Nombre"]);
+                R.Apellido = Convert.ToString(Fila["Apellido"]);
+                R.Correo = Convert.ToString(Fila["Correo"]);
+                // Aquí hay un conflicto para poder editar la contraseña
+                R.Contrasenia = "contrasenia123";
+                //R.Contrasennia = Convert.ToString(Fila["Contrasennia"]);
+                R.MiRol.IDRol = Convert.ToInt32(Fila["IDRol"]);
+                R.Telefono = Convert.ToString(Fila["Telefono"]);
+
+                R.Direccion = Convert.ToString(Fila["Direccion"]);
+                R.Estado = Convert.ToInt32(Fila["Estado"]) > 0;
+            }
+            return R;
+        }
+
+        public Usuario ValidarIngreso(string correo, string contrasenia)
+        {
+            Usuario R = new Usuario();
+
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@correo", correo));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@contrasenia", contrasenia));
+
+            DataTable DatosUsuario = new DataTable();
+            DatosUsuario = MiCnn.DMLSelect("SPUsuarioValidarIngreso");
+
+            if (DatosUsuario != null && DatosUsuario.Rows.Count == 1)
+            {
+                DataRow Fila = DatosUsuario.Rows[0];
+
+                R.ID_Usuario = Convert.ToInt32(Fila["ID"]); ;
+                R.Nombre = Convert.ToString(Fila["Nombre"]);
+                R.Apellido = Convert.ToString(Fila["Apellido"]);
+                R.Correo = Convert.ToString(Fila["Correo"]);
+                // Aquí hay un conflicto para poder editar la contraseña
+                R.Contrasenia = string.Empty;
+                //R.Contrasennia = Convert.ToString(Fila["Contrasennia"]);
+                R.MiRol.IDRol = Convert.ToInt32(Fila["IDRol"]);
+                
+                R.Telefono = Convert.ToString(Fila["Telefono"]);
+
+                R.Direccion = Convert.ToString(Fila["Direccion"]);
+                R.Estado = true;
+            }
+
+            return R;
+        }
+
+        public override string ToString()
+        {
+            return "ID: " + ID_Usuario + "\n" +
+            "Nombre: " + Nombre + "\n" +
+            "Apellidos: " + Apellido + "\n" +
+            "Correo: " + Correo + "\n" +
+            "Telefono: " + Telefono + "\n" +
+            "Contraseña " + Contrasenia + "\n" +
+            "Direccion: " +Direccion + "\n" +
+            "ID Rol: " + MiRol.IDRol + "\n" +
+            "Estado: " + Estado;
+    }
     }
 }

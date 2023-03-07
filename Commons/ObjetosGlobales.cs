@@ -10,12 +10,16 @@ namespace Esperanza.Commons
 {
     public static class ObjetosGlobales
     {
-
+        // Forms
+        public static Form MiFormPrincipal = new Forms.FrmMain();
         public static Form FormUsuarioGestion = new Forms.FrmUsuarioGestion();
         private static char DecimalSeparator = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToString());
 
         public static string RestriccionesUsuarioRegular = "Usuarios;Roles;Clientes;EstadoCuenta";
         public static string RestriccionesUsuarioAdmin = "Ninguna Restriccion";
+
+        // Instancias
+        public static Logica.Models.Usuario MiUsuarioDeSistema = new Logica.Models.Usuario();
 
         // Expresiones regulares
         static Regex limiteCaracteres = new Regex(@".{8,12}");

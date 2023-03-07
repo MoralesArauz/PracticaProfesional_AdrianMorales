@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,34 +53,37 @@ namespace Esperanza.Forms
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            lblStripUsuario.Text = 
+                Commons.ObjetosGlobales.MiUsuarioDeSistema.Nombre + 
+                " " + 
+                Commons.ObjetosGlobales.MiUsuarioDeSistema.Apellido;
 
+            lblStripFecha.Text = DateTime.Now.ToString("D",
+                  CultureInfo.CreateSpecificCulture("es-MX"));
         }
+      
 
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Seguro que desea salir?","Saliendo del Sistema", MessageBoxButtons.OKCancel) == DialogResult.OK )
-                Application.Exit(); 
-        }
-
-        private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
-            // De lo contrario se muestra.
-            if (Commons.ObjetosGlobales.FormUsuarioGestion.Visible)
+            base.OnFormClosing(e);
+            if (PreClosingConfirmation() == DialogResult.Yes)
             {
-                Commons.ObjetosGlobales.FormUsuarioGestion.BringToFront();
+                Dispose(true);
+                Application.Exit();
             }
             else
             {
-                // Reinicia el formulario por si se ha cerrado anteriormente.
-                Commons.ObjetosGlobales.FormUsuarioGestion = new Forms.FrmUsuarioGestion(this);
-
-                Commons.ObjetosGlobales.FormUsuarioGestion.Show();
-
+                e.Cancel = true;
             }
         }
 
-        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
+        private DialogResult PreClosingConfirmation()
+        {
+            DialogResult res = MessageBox.Show("¿Esta seguro de que quiere cerrar la aplicacion?", "Cerrar la Aplicacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return res;
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserControl ControlUsuarios = new Controls.CtrlUsuarios();
             PnlContenedor.Controls.Clear();

@@ -1,10 +1,12 @@
-﻿using Logica.Tools;
+﻿using Esperanza.Controls;
+using Logica.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,31 +16,58 @@ namespace Esperanza.Forms
     public partial class FrmUsuarioGestion : Form
     {
         public Logica.Models.Usuario MiUsuarioLocal { get; set; }
-        private Form padre { get; set; }
+        private CtrlUsuarios padre { get; set; }
         private bool UsuarioNuevo = true;
         private bool CargaInicial = true;
         private bool contraseniaValida = false;
+        private int IndexIDRol = -1;
         public FrmUsuarioGestion()
         {
             InitializeComponent();
         }
 
-        public FrmUsuarioGestion(Form parent, Logica.Models.Usuario usuario = null)
+        public FrmUsuarioGestion(CtrlUsuarios parent, Logica.Models.Usuario usuario = null)
         {
             InitializeComponent();
             MiUsuarioLocal = new Logica.Models.Usuario();
-            this.padre = parent;
+            padre = parent;
             // Esto es en caso de que se haya escogido un usuario para editarlo
             if (usuario != null)
             {
                 UsuarioNuevo = false;
                 MiUsuarioLocal = usuario;
+                IndexIDRol = MiUsuarioLocal.MiRol.IDRol - 1;
             }
         }
 
         private void LlenarFormulario()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Este es el IDRol de Llenar Formulario " + MiUsuarioLocal.Nombre + ": " + MiUsuarioLocal.MiRol.IDRol);
+            TxtNombre.Text = MiUsuarioLocal.Nombre;
+            TxtApellidos.Text = MiUsuarioLocal.Apellido;
+            TxtTelefono1.Text = MiUsuarioLocal.Telefono;
+            TxtCorreo.Text = MiUsuarioLocal.Correo;
+            TxtContrasenia.Text = MiUsuarioLocal.Contrasenia;
+            TxtContraseniaConfirm.Text = MiUsuarioLocal.Contrasenia;
+            CbRol.SelectedIndex = IndexIDRol;
+            CheckBoxActivo.Checked = MiUsuarioLocal.Estado;
+            TxtDireccion.Text = MiUsuarioLocal.Direccion;
+            contraseniaValida = true;
+            CargaInicial = false;
+            CambiarComponentes();
+        }
+
+        private void CambiarComponentes() 
+        {
+            lblContrasenia.Enabled = false;
+            lblConfirmar.Enabled = false;
+            lblConfContr.Enabled = false;
+            TxtContrasenia.Enabled = false;
+            TxtContraseniaConfirm.Enabled = false;
+            picBoxConfirContrasenia.Enabled = false;
+            picBoxContrasenia.Enabled   = false;
+            btnGuargar.Text = "Actualizar";
+            btnGuargar.Size = new Size(125, 38);
         }
 
         private void CargarComboRoles()
@@ -51,7 +80,7 @@ namespace Esperanza.Forms
             CbRol.DisplayMember = "Nombre_Rol_Usuario";
             // Se asigna el origen los datos que mostrará el ComboBox
             CbRol.DataSource = DatosRoles;
-            CbRol.SelectedIndex = -1;
+            CbRol.SelectedIndex = IndexIDRol;
         }
 
         private void btnRegresar_Click(object sender, EventArgs e)
@@ -215,14 +244,7 @@ namespace Esperanza.Forms
 
         private void CbRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CbRol.SelectedIndex >= 0)
-            {
-                MiUsuarioLocal.MiRol.IDRol = Convert.ToInt32(CbRol.SelectedValue);
-            }
-            else
-            {
-                CbRol.SelectedIndex = 1;
-            }
+            
         }
 
         private void picBoxContrasenia_MouseDown(object sender, MouseEventArgs e)
@@ -261,7 +283,7 @@ namespace Esperanza.Forms
                         {
                             MessageBox.Show("El Usuario se agregó correctamente!", "Agregado", MessageBoxButtons.OK);
                             LimpiarFormulario();
-                           // padre.LlenarListaUsuarios(padre.CheckBoxVerActivos.Checked);
+                            padre.LlenarListaUsuarios(padre.CheckBoxVerActivos.Checked);
                         }
                         else
                         {
@@ -275,11 +297,11 @@ namespace Esperanza.Forms
                 }
                 else
                 {
-                    // El usuario ya existe por lo que se va a agregar
+                    // El usuario ya existe por lo que se va a editar
                     if (MiUsuarioLocal.Modificar())
                     {
-                        //MessageBox.Show("El usuario se editó correctamente", "Editado", MessageBoxButtons.OK);
-                        //padre.LlenarListaUsuarios(padre.CheckBoxVerActivos.Checked);
+                        MessageBox.Show("El usuario se editó correctamente", "Editado", MessageBoxButtons.OK);
+                        padre.LlenarListaUsuarios(padre.CheckBoxVerActivos.Checked);
                     }
                     else
                     {
@@ -290,6 +312,11 @@ namespace Esperanza.Forms
                 }
 
             }
+            else
+            {
+                MessageBox.Show("Debe llenar todos los campos!", "Datos incompletos", MessageBoxButtons.OK);
+            }
+            
         }
 
         private void LimpiarFormulario()
@@ -309,6 +336,79 @@ namespace Esperanza.Forms
             if (!string.IsNullOrEmpty(TxtDireccion.Text.Trim()))
             {
                 MiUsuarioLocal.Direccion = TxtDireccion.Text.Trim();
+            }
+        }
+
+        private void CbRol_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (CbRol.SelectedIndex >= 0)
+            {
+                MiUsuarioLocal.MiRol.IDRol = Convert.ToInt32(CbRol.SelectedValue);
+                //Console.WriteLine("Cambiando el ComboBox " + CbRol.SelectedValue);
+            }
+            else
+            {
+                CbRol.SelectedIndex = 1;
+            }
+        }
+
+        private bool CambiarEstadoUsuario(bool activo)
+        {
+            bool R = false;
+            DialogResult resultado;
+            if (activo)
+            {
+                resultado = MessageBox.Show(string.Format("Está seguro que desea activar al usuario: {0}?", MiUsuarioLocal.Nombre), "Activando", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    //TODO: Activar al usuario
+                    MiUsuarioLocal.Activar();
+                    padre.LlenarListaUsuarios(padre.CheckBoxVerActivos.Checked);
+
+                }
+                else
+                {
+                    CargaInicial = true;
+                    CheckBoxActivo.Checked = false;
+                    CargaInicial = false;
+                }
+
+            }
+            else
+            {
+                resultado = MessageBox.Show(string.Format("Está seguro que desea Inactivar al usuario: {0}?", MiUsuarioLocal.Nombre), "Inactivando", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    //TODO: Inactivar al usuario
+                    MiUsuarioLocal.Eliminar();
+                    padre.LlenarListaUsuarios();
+                }
+                else
+                {
+                    CargaInicial = true;
+                    CheckBoxActivo.Checked = true;
+                    CargaInicial = false;
+                }
+            }
+            return R;
+        }
+
+        private void CheckBoxActivo_CheckedChanged(object sender, EventArgs e)
+        {
+            // Verifica si el cambio se hizo después de la carga inicial, para así poder interpretar correctamente el evento,
+            // ya que al iniciar el form hay un cambio el el CheckBox, que se hace dependiendo del estado del usuario cargado.
+            if (!CargaInicial)
+            {
+                if (CheckBoxActivo.CheckState == 0)
+                {
+                    // Se acaba de quitar el check por lo que se quiere inactivar el usuario
+                    CambiarEstadoUsuario(false);
+                }
+                else
+                {
+                    // Se acaba de poner check por lo que se quiere activar el usuario
+                    CambiarEstadoUsuario(true);
+                }
             }
         }
     }
