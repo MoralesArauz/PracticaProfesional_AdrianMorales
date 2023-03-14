@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,17 @@ namespace Logica.Models
         public DateTime Fecha_Creacion { get; set; }
         public double Cantidad { get; set; } = 0;
 
+        public Categoria_Producto MiCategoria { get; set; }
+
         private Producto_Ingreso[] producto_Ingresos;
         private Producto_Factura[] producto_Factura;
 
         private Categoria_Producto categoria_ProductoID_Categoria_Producto;
 
-        public Producto() { }
+        public Producto() 
+        {
+            MiCategoria = new Categoria_Producto();
+        }
 
         public Producto(int iD_Producto, string cod_Producto, double costo, double precio, double utilidad, string imagen, 
             DateTime fecha_Creacion, double cantidad, Producto_Ingreso[] producto_Ingresos, Producto_Factura[] producto_Factura, 
@@ -62,9 +68,15 @@ namespace Logica.Models
         {
             throw new System.Exception("Not implemented");
         }
+
+        // Retorna la lista de productos definida en una vista en la base de datos
         public DataTable Listar(bool VerActivos = true)
         {
-            throw new System.Exception("Not implemented");
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@VerActivos", VerActivos));
+            R = MiCnn.DMLSelect("SPProductosListar");
+            return R;
         }
 
         public bool Consultar()

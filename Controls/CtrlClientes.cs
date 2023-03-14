@@ -61,16 +61,16 @@ namespace Esperanza.Controls
         {
             // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
             // De lo contrario se muestra.
-            if (Commons.ObjetosGlobales.FormAgregarCliente.Visible)
+            if (Commons.ObjetosGlobales.FormClienteGestion.Visible)
             {
-                Commons.ObjetosGlobales.FormAgregarCliente.BringToFront();
+                Commons.ObjetosGlobales.FormClienteGestion.BringToFront();
             }
             else
             {
                 // Reinicia el formulario por si se ha cerrado anteriormente.
-                Commons.ObjetosGlobales.FormAgregarCliente = new Forms.FrmClienteGestion(this);
+                Commons.ObjetosGlobales.FormClienteGestion = new Forms.FrmClienteGestion(this);
 
-                Commons.ObjetosGlobales.FormAgregarCliente.Show();
+                Commons.ObjetosGlobales.FormClienteGestion.Show();
 
             }
         }
@@ -79,16 +79,16 @@ namespace Esperanza.Controls
         {
             // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
             // De lo contrario se muestra.
-            if (Commons.ObjetosGlobales.FormAgregarCliente.Visible)
+            if (Commons.ObjetosGlobales.FormClienteGestion.Visible)
             {
-                Commons.ObjetosGlobales.FormAgregarCliente.BringToFront();
+                Commons.ObjetosGlobales.FormClienteGestion.BringToFront();
             }
             else
             {
                 // Reinicia el formulario por si se ha cerrado anteriormente.
-                Commons.ObjetosGlobales.FormAgregarCliente = new Forms.FrmClienteGestion(this, MiClienteLocal);
+                Commons.ObjetosGlobales.FormClienteGestion = new Forms.FrmClienteGestion(this, MiClienteLocal);
 
-                Commons.ObjetosGlobales.FormAgregarCliente.Show();
+                Commons.ObjetosGlobales.FormClienteGestion.Show();
 
             }
         }

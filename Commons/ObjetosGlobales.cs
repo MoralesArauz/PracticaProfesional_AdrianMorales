@@ -13,8 +13,8 @@ namespace Esperanza.Commons
         // Forms
         public static Form MiFormPrincipal = new Forms.FrmMain();
         public static Form FormUsuarioGestion = new Forms.FrmUsuarioGestion();
-        public static Form FormAgregarCliente = new Forms.FrmClienteGestion();
-
+        public static Form FormClienteGestion = new Forms.FrmClienteGestion();
+        public static Form FormProductoAgregar = new Forms.FrmProductoAgregar();
 
 
         private static char DecimalSeparator = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToString());
@@ -56,6 +56,31 @@ namespace Esperanza.Commons
                 return false;
             }
             return true;
+        }
+
+        public static bool CaracteresNumeros(System.Windows.Forms.KeyPressEventArgs c, bool SoloEnteros = true)
+        {
+            //En el caso que presione enter acepta el valor y devuelve True
+            int Asc = (int)Keys.Enter;
+
+            if (c.KeyChar == Asc)
+            {
+                return true;
+            }
+            if (SoloEnteros == false)
+            {
+                if (c.KeyChar.ToString() == (".") | c.KeyChar.ToString() == (","))
+                {
+                    c.KeyChar = DecimalSeparator;
+                    return false;
+                }
+            }
+
+            if (!(char.IsDigit(c.KeyChar)) & !(c.KeyChar == Convert.ToChar(Keys.Back)) & !(c.KeyChar == Convert.ToChar(Keys.Enter)))
+            { return true; }
+            else
+            { return false; }
+
         }
     }
 }

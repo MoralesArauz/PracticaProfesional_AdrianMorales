@@ -102,5 +102,15 @@ namespace Esperanza.Forms
             ControlClientes.Dock = DockStyle.Fill;
             PnlContenedor.Controls.Add(ControlClientes);
         }
+
+        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "Productos";
+            UserControl ControlProductos = new Controls.CtrlProductos();
+            PnlContenedor.Controls.Clear();
+
+            ControlProductos.Dock = DockStyle.Fill;
+            PnlContenedor.Controls.Add(ControlProductos);
+        }
     }
 }
