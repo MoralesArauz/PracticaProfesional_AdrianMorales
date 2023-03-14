@@ -13,6 +13,10 @@ namespace Esperanza.Commons
         // Forms
         public static Form MiFormPrincipal = new Forms.FrmMain();
         public static Form FormUsuarioGestion = new Forms.FrmUsuarioGestion();
+        public static Form FormAgregarCliente = new Forms.FrmClienteGestion();
+
+
+
         private static char DecimalSeparator = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToString());
 
         public static string RestriccionesUsuarioRegular = "Usuarios;Roles;Clientes;EstadoCuenta";

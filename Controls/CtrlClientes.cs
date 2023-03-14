@@ -24,10 +24,11 @@ namespace Esperanza.Controls
         private void CtrlClientes_Load(object sender, EventArgs e)
         {
             CargarComboCategorias();
+            CboxVerActivos.Checked = true;
             LlenarListaClientes();
         }
 
-        private void LlenarListaClientes(bool activos = true)
+        public void LlenarListaClientes(bool activos = true)
         {
             ListaClientes = MiClienteLocal.Listar(activos);
             DgvListaClientes.DataSource = ListaClientes;
@@ -49,6 +50,71 @@ namespace Esperanza.Controls
             // Se asigna el origen los datos que mostrará el ComboBox
             CbCategoriaCliente.DataSource = CategoriaClientes;
             CbCategoriaCliente.SelectedIndex = -1;
+        }
+
+        private void CboxVerActivos_Click(object sender, EventArgs e)
+        {
+            LlenarListaClientes(CboxVerActivos.Checked);
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
+            // De lo contrario se muestra.
+            if (Commons.ObjetosGlobales.FormAgregarCliente.Visible)
+            {
+                Commons.ObjetosGlobales.FormAgregarCliente.BringToFront();
+            }
+            else
+            {
+                // Reinicia el formulario por si se ha cerrado anteriormente.
+                Commons.ObjetosGlobales.FormAgregarCliente = new Forms.FrmClienteGestion(this);
+
+                Commons.ObjetosGlobales.FormAgregarCliente.Show();
+
+            }
+        }
+
+        private void EditarUsuario()
+        {
+            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
+            // De lo contrario se muestra.
+            if (Commons.ObjetosGlobales.FormAgregarCliente.Visible)
+            {
+                Commons.ObjetosGlobales.FormAgregarCliente.BringToFront();
+            }
+            else
+            {
+                // Reinicia el formulario por si se ha cerrado anteriormente.
+                Commons.ObjetosGlobales.FormAgregarCliente = new Forms.FrmClienteGestion(this, MiClienteLocal);
+
+                Commons.ObjetosGlobales.FormAgregarCliente.Show();
+
+            }
+        }
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditarUsuario();
+        }
+
+        private void DgvListaClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (DgvListaClientes.SelectedRows.Count == 1)
+            {
+                //LimpiarFormulario(false);
+
+                DataGridViewRow MiFila = DgvListaClientes.SelectedRows[0];
+                // Asignar el valor del ID a MiUsuarioLocal para hacer la búsqueda en la base de datos y traer el valor de sus campos en la tabla
+                MiClienteLocal.ID_Cliente = Convert.ToInt32(MiFila.Cells["CIDCliente"].Value);
+
+                // Aquí se cargan los atributos de MiUsuarioLocal
+                MiClienteLocal = MiClienteLocal.ConsultarPorID();
+            }
+        }
+
+        private void DgvListaClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EditarUsuario();
         }
     }
 }

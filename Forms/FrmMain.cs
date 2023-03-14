@@ -85,6 +85,7 @@ namespace Esperanza.Forms
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lblModulo.Text = "Usuarios";
             UserControl ControlUsuarios = new Controls.CtrlUsuarios();
             PnlContenedor.Controls.Clear();
             
@@ -94,6 +95,7 @@ namespace Esperanza.Forms
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lblModulo.Text = "Clientes";
             UserControl ControlClientes = new Controls.CtrlClientes();
             PnlContenedor.Controls.Clear();
             

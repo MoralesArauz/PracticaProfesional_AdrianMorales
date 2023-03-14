@@ -74,6 +74,7 @@
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -82,6 +83,7 @@
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // estadosCuentaToolStripMenuItem
             // 
@@ -158,6 +160,7 @@
             this.CboxVerActivos.TabIndex = 2;
             this.CboxVerActivos.Text = "Activos";
             this.CboxVerActivos.UseVisualStyleBackColor = true;
+            this.CboxVerActivos.Click += new System.EventHandler(this.CboxVerActivos_Click);
             // 
             // textBox1
             // 
@@ -201,6 +204,8 @@
             this.DgvListaClientes.Size = new System.Drawing.Size(942, 419);
             this.DgvListaClientes.TabIndex = 5;
             this.DgvListaClientes.VirtualMode = true;
+            this.DgvListaClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaClientes_CellClick);
+            this.DgvListaClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaClientes_CellDoubleClick);
             // 
             // CIDCliente
             // 
@@ -297,7 +302,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label LblCategoria;
         private System.Windows.Forms.ComboBox CbCategoriaCliente;
-        private System.Windows.Forms.CheckBox CboxVerActivos;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DgvListaClientes;
@@ -310,5 +314,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CTelefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCategoria;
+        public System.Windows.Forms.CheckBox CboxVerActivos;
     }
 }

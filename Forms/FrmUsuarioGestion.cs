@@ -74,7 +74,7 @@ namespace Esperanza.Forms
             // Se llenará el combobox con los roles existentes en la base de datos.
             DataTable DatosRoles = new DataTable();
             DatosRoles = MiUsuarioLocal.MiRol.Listar();
-            Console.WriteLine(DatosRoles.ToString());
+            
             CbRol.ValueMember = "ID";
             CbRol.DisplayMember = "Nombre_Rol_Usuario";
             // Se asigna el origen los datos que mostrará el ComboBox
