@@ -104,6 +104,12 @@
     <Compile Include="Forms\FrmProductoAgregar.Designer.cs">
       <DependentUpon>FrmProductoAgregar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmProductoGestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProductoGestion.Designer.cs">
+      <DependentUpon>FrmProductoGestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmUsuarioGestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProductoAgregar.resx">
       <DependentUpon>FrmProductoAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProductoGestion.resx">
+      <DependentUpon>FrmProductoGestion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmUsuarioGestion.resx">
       <DependentUpon>FrmUsuarioGestion.cs</DependentUpon>
@@ -218,6 +227,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cliente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregar.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\imagenes\default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

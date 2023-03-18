@@ -26,16 +26,10 @@ namespace Esperanza.Controls
             LlenarListaProductos();
         }
 
-        private void LlenarListaProductos(bool activos = true)
+        public void LlenarListaProductos(bool activos = true)
         {
             ListaProductos = MiProducto.Listar(activos);
             DgvListaProductos.DataSource = ListaProductos;
-            DataGridViewColumnCollection columnas = DgvListaProductos.Columns;
-            foreach (DataGridViewTextBoxColumn columna in columnas)
-            {
-                Console.WriteLine(columna.HeaderCell);
-            }
-           // DgvListaProductos.Columns("ChargeField").DefaultCellStyle.Format = "c";
             DgvListaProductos.ClearSelection();
         }
 
@@ -89,6 +83,54 @@ namespace Esperanza.Controls
                 Commons.ObjetosGlobales.FormProductoAgregar.Show();
 
             }
+        }
+
+        private void CboxVerActivos_Click(object sender, EventArgs e)
+        {
+            LlenarListaProductos(CboxVerActivos.Checked);
+        }
+
+        private void DgvListaProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (DgvListaProductos.SelectedRows.Count == 1)
+            {
+                //LimpiarFormulario(false);
+
+                DataGridViewRow MiFila = DgvListaProductos.SelectedRows[0];
+                // Asignar el valor del ID a MiUsuarioLocal para hacer la búsqueda en la base de datos y traer el valor de sus campos en la tabla
+                MiProducto.ID_Producto = Convert.ToInt32(MiFila.Cells["CID_Producto"].Value);
+
+                // Aquí se cargan los atributos de MiUsuarioLocal
+                MiProducto = MiProducto.ConsultarPorID();
+            }
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultarProducto();
+        }
+
+        private void ConsultarProducto()
+        {
+            //MessageBox.Show("Ha seleccionado el producto:\n"+MiProducto.ToString(),"Prueba Consultar Producto", MessageBoxButtons.OK);
+            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
+            // De lo contrario se muestra.
+            if (Commons.ObjetosGlobales.FormProductoGestion.Visible)
+            {
+                Commons.ObjetosGlobales.FormProductoGestion.BringToFront();
+            }
+            else
+            {
+                // Reinicia el formulario por si se ha cerrado anteriormente.
+                Commons.ObjetosGlobales.FormProductoGestion = new Forms.FrmProductoGestion(this, MiProducto);
+
+                Commons.ObjetosGlobales.FormProductoGestion.Show();
+            }
+        }
+
+        private void DgvListaProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ConsultarProducto();
         }
     }
 }
