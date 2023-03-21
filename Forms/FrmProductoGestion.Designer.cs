@@ -39,6 +39,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblIngresos = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.btnRecalcularCPU = new System.Windows.Forms.Button();
             this.TxtUtilidad = new System.Windows.Forms.TextBox();
@@ -49,6 +50,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.PicBoxImagen = new System.Windows.Forms.PictureBox();
             this.gBoxDatos = new System.Windows.Forms.GroupBox();
+            this.TxtFecha = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnDatos = new System.Windows.Forms.Button();
             this.CboxActivo = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -59,8 +62,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.TxtFecha = new System.Windows.Forms.TextBox();
             this.TabControlPrincipal.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -118,6 +119,7 @@
             this.TxtExistencias.ReadOnly = true;
             this.TxtExistencias.Size = new System.Drawing.Size(100, 26);
             this.TxtExistencias.TabIndex = 5;
+            this.TxtExistencias.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TxtVentas
             // 
@@ -164,6 +166,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnCancelar);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.btnRecalcularCPU);
             this.groupBox1.Controls.Add(this.TxtUtilidad);
@@ -179,6 +182,22 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Costo / Precio";
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.AutoSize = true;
+            this.btnCancelar.BackColor = System.Drawing.Color.Red;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.Location = new System.Drawing.Point(191, 162);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(114, 32);
+            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.button1_Click);
             // 
             // label9
             // 
@@ -200,10 +219,11 @@
             this.btnRecalcularCPU.ForeColor = System.Drawing.Color.White;
             this.btnRecalcularCPU.Location = new System.Drawing.Point(14, 162);
             this.btnRecalcularCPU.Name = "btnRecalcularCPU";
-            this.btnRecalcularCPU.Size = new System.Drawing.Size(114, 32);
+            this.btnRecalcularCPU.Size = new System.Drawing.Size(154, 32);
             this.btnRecalcularCPU.TabIndex = 8;
-            this.btnRecalcularCPU.Text = "Recalcular";
+            this.btnRecalcularCPU.Text = "Aplicar Cambios";
             this.btnRecalcularCPU.UseVisualStyleBackColor = false;
+            this.btnRecalcularCPU.Click += new System.EventHandler(this.btnRecalcularCPU_Click);
             // 
             // TxtUtilidad
             // 
@@ -211,20 +231,32 @@
             this.TxtUtilidad.Name = "TxtUtilidad";
             this.TxtUtilidad.Size = new System.Drawing.Size(61, 26);
             this.TxtUtilidad.TabIndex = 5;
+            this.TxtUtilidad.TextChanged += new System.EventHandler(this.TxtUtilidad_TextChanged);
+            this.TxtUtilidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtUtilidad_KeyDown);
+            this.TxtUtilidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtUtilidad_KeyPress);
+            this.TxtUtilidad.Leave += new System.EventHandler(this.TxtUtilidad_Leave);
             // 
             // TxtPrecio
             // 
             this.TxtPrecio.Location = new System.Drawing.Point(107, 74);
             this.TxtPrecio.Name = "TxtPrecio";
-            this.TxtPrecio.Size = new System.Drawing.Size(160, 26);
+            this.TxtPrecio.Size = new System.Drawing.Size(198, 26);
             this.TxtPrecio.TabIndex = 4;
+            this.TxtPrecio.TextChanged += new System.EventHandler(this.TxtPrecio_TextChanged);
+            this.TxtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPrecio_KeyDown);
+            this.TxtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPrecio_KeyPress);
+            this.TxtPrecio.Leave += new System.EventHandler(this.TxtPrecio_Leave);
             // 
             // TxtCosto
             // 
             this.TxtCosto.Location = new System.Drawing.Point(107, 35);
             this.TxtCosto.Name = "TxtCosto";
-            this.TxtCosto.Size = new System.Drawing.Size(160, 26);
+            this.TxtCosto.Size = new System.Drawing.Size(198, 26);
             this.TxtCosto.TabIndex = 3;
+            this.TxtCosto.TextChanged += new System.EventHandler(this.TxtCosto_TextChanged);
+            this.TxtCosto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCosto_KeyDown);
+            this.TxtCosto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCosto_KeyPress);
+            this.TxtCosto.Leave += new System.EventHandler(this.TxtCosto_Leave);
             // 
             // label6
             // 
@@ -281,6 +313,23 @@
             this.gBoxDatos.TabStop = false;
             this.gBoxDatos.Text = "Datos";
             // 
+            // TxtFecha
+            // 
+            this.TxtFecha.Location = new System.Drawing.Point(108, 174);
+            this.TxtFecha.Name = "TxtFecha";
+            this.TxtFecha.ReadOnly = true;
+            this.TxtFecha.Size = new System.Drawing.Size(216, 26);
+            this.TxtFecha.TabIndex = 9;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 177);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 20);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Creado:";
+            // 
             // btnDatos
             // 
             this.btnDatos.AutoSize = true;
@@ -296,6 +345,7 @@
             this.btnDatos.TabIndex = 7;
             this.btnDatos.Text = "Actualizar Datos";
             this.btnDatos.UseVisualStyleBackColor = false;
+            this.btnDatos.Click += new System.EventHandler(this.btnDatos_Click);
             // 
             // CboxActivo
             // 
@@ -369,7 +419,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(820, 469);
+            this.tabPage2.Size = new System.Drawing.Size(838, 512);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Ingresos";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -379,27 +429,10 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(820, 469);
+            this.tabPage3.Size = new System.Drawing.Size(838, 512);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Salidas";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 177);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(65, 20);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Creado:";
-            // 
-            // TxtFecha
-            // 
-            this.TxtFecha.Location = new System.Drawing.Point(108, 174);
-            this.TxtFecha.Name = "TxtFecha";
-            this.TxtFecha.ReadOnly = true;
-            this.TxtFecha.Size = new System.Drawing.Size(216, 26);
-            this.TxtFecha.TabIndex = 9;
             // 
             // FrmProductoGestion
             // 
@@ -461,5 +494,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox TxtFecha;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

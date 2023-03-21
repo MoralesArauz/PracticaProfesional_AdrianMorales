@@ -55,7 +55,21 @@ namespace Logica.Models
         }
         public bool Modificar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Producto));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Descripcion", Descripcion));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@IDCategoria", MiCategoria.ID_Categoria_Producto));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPProductoEditar");
+
+            if (retorno == 1)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public bool Eliminar()
         {
@@ -157,6 +171,26 @@ namespace Logica.Models
             {
                 R = true;
             }
+
+            return R;
+        }
+
+        public bool ActualizarPrecioCostoUtilidad()
+        {
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Producto));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Costo", Costo));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Precio", Precio));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Utilidad", Utilidad));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPProductoActualizarCostoPrecioUtilidad");
+
+            if (retorno == 1)
+            {
+                R = true;
+            }
+
 
             return R;
         }

@@ -143,6 +143,16 @@ namespace Logica.Models
             R = MiCnn.DMLSelect("SPClientesListar");
             return R;
         }
+
+        public DataTable ListarComboBox(bool VerActivo = true)
+        {
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            R = MiCnn.DMLSelect("SPClienteListarComboBox");
+            return R;
+        }
+
+
         public bool ConsultarBalanceCliente()
         {
             throw new System.Exception("Not implemented");

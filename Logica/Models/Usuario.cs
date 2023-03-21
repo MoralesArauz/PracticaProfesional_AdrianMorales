@@ -233,6 +233,15 @@ namespace Logica.Models
             "Direccion: " +Direccion + "\n" +
             "ID Rol: " + MiRol.IDRol + "\n" +
             "Estado: " + Estado;
-    }
+        }
+
+        // Se crea otro listar para llenar combobox, asi se evita traer mas datos de los necesarios
+        public DataTable ListarComboBox()
+        {
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            R = MiCnn.DMLSelect("SPUsuariosListarComboBox");
+            return R;
+        }
     }
 }
