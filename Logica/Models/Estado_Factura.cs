@@ -14,15 +14,14 @@ namespace Logica.Models
         public String Descripcion { get; set; }
         public bool Estado { get; set; }
 
-        private Factura[] factura;
+        private Factura[] factura { get; set; }
         public Estado_Factura() { }
 
-        public Estado_Factura(int iD_Estado_Factura, string descripcion, bool estado, Factura[] factura)
+        public Estado_Factura(int iD_Estado_Factura, string descripcion, bool estado)
         {
             ID_Estado_Factura = iD_Estado_Factura;
             Descripcion = descripcion;
             Estado = estado;
-            this.factura = factura;
         }
 
         public bool Agregar()

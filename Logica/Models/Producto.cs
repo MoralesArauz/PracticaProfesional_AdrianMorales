@@ -100,7 +100,7 @@ namespace Logica.Models
             {
                 DataRow Fila = retorno.Rows[0];
 
-                R.ID_Producto = Convert.ToInt32(Fila["ID_Producto"]); ;
+                R.ID_Producto = Convert.ToInt32(Fila["ID_Producto"]); 
                 R.Cod_Producto = Convert.ToString(Fila["Cod_Producto"]);
                 R.Descripcion = Convert.ToString(Fila["Descripcion"]);
                 R.Costo = Convert.ToDouble(Fila["Costo"]);
@@ -142,7 +142,9 @@ namespace Logica.Models
                 Cod_Producto, Costo, Precio, MiCategoria.ID_Categoria_Producto, Descripcion);
         }
 
-        public bool ConsultarPorCodigo()
+        // Recibe un parametro en caso que seguida de esta consulta se quiera obtener los valores del producto por medio del metodo
+        // ConsultarPorID()
+        public bool ConsultarPorCodigo(bool retornarProducto = false)
         {
             bool R = false;
             Conexion MiCnn = new Conexion();
@@ -153,6 +155,13 @@ namespace Logica.Models
             DataTable retorno = MiCnn.DMLSelect("SPProductoConsultarPorCodigo");
             if (retorno != null && retorno.Rows.Count > 0)
             {
+                // Esto es por si se quieren traer todos los datos de este producto, una vez se ha confirmado que existe
+                if (retornarProducto)
+                {
+                    DataRow Fila = retorno.Rows[0];
+                    ID_Producto = Convert.ToInt32(Fila["ID_Producto"]);
+                }
+                
                 R = true;
             }
             return R;
@@ -194,5 +203,6 @@ namespace Logica.Models
 
             return R;
         }
+
     }
 }

@@ -17,17 +17,20 @@ namespace Logica.Models
         public double Impuesto { get; set; }
         public double Descuento { get; set; } = 0;
         public DateTime Fecha_Creacion { get; set; }
-
-        public Producto_Factura[] producto_Factura;
+        public string Observaciones { get; set; }
+        public List<Producto_Factura> producto_Factura { get; set; }
         public Cliente MiCliente;
         public Usuario MiUsuario;
+        public Producto MiProducto;
         public Estado_Factura MiEstado;
 
         public Factura() 
         {
             MiCliente = new Cliente();
             MiUsuario = new Usuario();
+            MiProducto = new Producto();
             MiEstado = new Estado_Factura();    
+            producto_Factura = new List<Producto_Factura>();
         }
 
         public bool Agregar()

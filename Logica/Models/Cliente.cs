@@ -144,6 +144,16 @@ namespace Logica.Models
             return R;
         }
 
+        public DataTable ListarConFiltro(bool activos, string valorBuscado)
+        {
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@VerActivos", activos));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ValorBuscado", valorBuscado));
+            R = MiCnn.DMLSelect("SPClientesListarConFiltro");
+            return R;
+        }
+
         public DataTable ListarComboBox(bool VerActivo = true)
         {
             DataTable R = new DataTable();

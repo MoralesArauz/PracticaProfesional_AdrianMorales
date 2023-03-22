@@ -48,12 +48,6 @@
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.TxtCodigoProducto = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.DgvDetalleFactura = new System.Windows.Forms.DataGridView();
-            this.CCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -66,14 +60,20 @@
             this.TxtTotal = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtSubtotal = new System.Windows.Forms.TextBox();
+            this.DgvDetalleFactura = new System.Windows.Forms.DataGridView();
+            this.CCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleFactura)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleFactura)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -106,12 +106,13 @@
             this.BtnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCancelar.ForeColor = System.Drawing.Color.White;
-            this.BtnCancelar.Location = new System.Drawing.Point(161, 43);
+            this.BtnCancelar.Location = new System.Drawing.Point(162, 32);
             this.BtnCancelar.Name = "BtnCancelar";
             this.BtnCancelar.Size = new System.Drawing.Size(120, 26);
             this.BtnCancelar.TabIndex = 4;
             this.BtnCancelar.Text = "Cancelar";
             this.BtnCancelar.UseVisualStyleBackColor = false;
+            this.BtnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
             // BtnGuardar
             // 
@@ -120,7 +121,7 @@
             this.BtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.White;
-            this.BtnGuardar.Location = new System.Drawing.Point(19, 43);
+            this.BtnGuardar.Location = new System.Drawing.Point(20, 32);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(120, 26);
             this.BtnGuardar.TabIndex = 3;
@@ -181,6 +182,7 @@
             this.BtnAgregarLinea.TabIndex = 10;
             this.BtnAgregarLinea.Text = "Agregar Línea";
             this.BtnAgregarLinea.UseVisualStyleBackColor = false;
+            this.BtnAgregarLinea.Click += new System.EventHandler(this.BtnAgregarLinea_Click);
             // 
             // label5
             // 
@@ -204,7 +206,7 @@
             // 
             this.LblCliente.AutoSize = true;
             this.LblCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblCliente.Location = new System.Drawing.Point(66, 22);
+            this.LblCliente.Location = new System.Drawing.Point(99, 22);
             this.LblCliente.Name = "LblCliente";
             this.LblCliente.Size = new System.Drawing.Size(75, 20);
             this.LblCliente.TabIndex = 2;
@@ -215,8 +217,10 @@
             this.TxtCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtCliente.Location = new System.Drawing.Point(22, 19);
             this.TxtCliente.Name = "TxtCliente";
-            this.TxtCliente.Size = new System.Drawing.Size(38, 26);
+            this.TxtCliente.Size = new System.Drawing.Size(71, 26);
             this.TxtCliente.TabIndex = 0;
+            this.TxtCliente.DoubleClick += new System.EventHandler(this.TxtCliente_DoubleClick);
+            this.TxtCliente.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TxtCliente_PreviewKeyDown);
             // 
             // label3
             // 
@@ -264,6 +268,9 @@
             this.TxtCodigoProducto.Name = "TxtCodigoProducto";
             this.TxtCodigoProducto.Size = new System.Drawing.Size(100, 20);
             this.TxtCodigoProducto.TabIndex = 0;
+            this.TxtCodigoProducto.DoubleClick += new System.EventHandler(this.TxtCodigoProducto_DoubleClick);
+            this.TxtCodigoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCodigoProducto_KeyPress);
+            this.TxtCodigoProducto.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TxtCodigoProducto_PreviewKeyDown);
             // 
             // tableLayoutPanel1
             // 
@@ -280,68 +287,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1026, 412);
             this.tableLayoutPanel1.TabIndex = 6;
-            // 
-            // DgvDetalleFactura
-            // 
-            this.DgvDetalleFactura.AllowUserToAddRows = false;
-            this.DgvDetalleFactura.AllowUserToDeleteRows = false;
-            this.DgvDetalleFactura.AllowUserToResizeRows = false;
-            this.DgvDetalleFactura.BackgroundColor = System.Drawing.Color.White;
-            this.DgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CCodigo,
-            this.CDescripcion,
-            this.CCantidad,
-            this.CPrecio,
-            this.CTotal});
-            this.DgvDetalleFactura.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DgvDetalleFactura.Location = new System.Drawing.Point(3, 3);
-            this.DgvDetalleFactura.MultiSelect = false;
-            this.DgvDetalleFactura.Name = "DgvDetalleFactura";
-            this.DgvDetalleFactura.ReadOnly = true;
-            this.DgvDetalleFactura.RowHeadersVisible = false;
-            this.DgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvDetalleFactura.Size = new System.Drawing.Size(1020, 268);
-            this.DgvDetalleFactura.TabIndex = 1;
-            // 
-            // CCodigo
-            // 
-            this.CCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CCodigo.HeaderText = "Código";
-            this.CCodigo.Name = "CCodigo";
-            this.CCodigo.ReadOnly = true;
-            this.CCodigo.Width = 130;
-            // 
-            // CDescripcion
-            // 
-            this.CDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CDescripcion.HeaderText = "Descripción";
-            this.CDescripcion.Name = "CDescripcion";
-            this.CDescripcion.ReadOnly = true;
-            // 
-            // CCantidad
-            // 
-            this.CCantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CCantidad.HeaderText = "Cantidad";
-            this.CCantidad.Name = "CCantidad";
-            this.CCantidad.ReadOnly = true;
-            this.CCantidad.Width = 200;
-            // 
-            // CPrecio
-            // 
-            this.CPrecio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CPrecio.HeaderText = "Precio";
-            this.CPrecio.Name = "CPrecio";
-            this.CPrecio.ReadOnly = true;
-            this.CPrecio.Width = 200;
-            // 
-            // CTotal
-            // 
-            this.CTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.CTotal.HeaderText = "Total";
-            this.CTotal.Name = "CTotal";
-            this.CTotal.ReadOnly = true;
-            this.CTotal.Width = 200;
             // 
             // panel4
             // 
@@ -457,6 +402,68 @@
             this.TxtSubtotal.Size = new System.Drawing.Size(100, 20);
             this.TxtSubtotal.TabIndex = 4;
             // 
+            // DgvDetalleFactura
+            // 
+            this.DgvDetalleFactura.AllowUserToAddRows = false;
+            this.DgvDetalleFactura.AllowUserToDeleteRows = false;
+            this.DgvDetalleFactura.AllowUserToResizeRows = false;
+            this.DgvDetalleFactura.BackgroundColor = System.Drawing.Color.White;
+            this.DgvDetalleFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvDetalleFactura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CCodigo,
+            this.CDescripcion,
+            this.CCantidad,
+            this.CPrecio,
+            this.CTotal});
+            this.DgvDetalleFactura.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DgvDetalleFactura.Location = new System.Drawing.Point(3, 3);
+            this.DgvDetalleFactura.MultiSelect = false;
+            this.DgvDetalleFactura.Name = "DgvDetalleFactura";
+            this.DgvDetalleFactura.ReadOnly = true;
+            this.DgvDetalleFactura.RowHeadersVisible = false;
+            this.DgvDetalleFactura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DgvDetalleFactura.Size = new System.Drawing.Size(1020, 268);
+            this.DgvDetalleFactura.TabIndex = 1;
+            // 
+            // CCodigo
+            // 
+            this.CCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CCodigo.HeaderText = "Código";
+            this.CCodigo.Name = "CCodigo";
+            this.CCodigo.ReadOnly = true;
+            this.CCodigo.Width = 130;
+            // 
+            // CDescripcion
+            // 
+            this.CDescripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.CDescripcion.HeaderText = "Descripción";
+            this.CDescripcion.Name = "CDescripcion";
+            this.CDescripcion.ReadOnly = true;
+            // 
+            // CCantidad
+            // 
+            this.CCantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CCantidad.HeaderText = "Cantidad";
+            this.CCantidad.Name = "CCantidad";
+            this.CCantidad.ReadOnly = true;
+            this.CCantidad.Width = 200;
+            // 
+            // CPrecio
+            // 
+            this.CPrecio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CPrecio.HeaderText = "Precio";
+            this.CPrecio.Name = "CPrecio";
+            this.CPrecio.ReadOnly = true;
+            this.CPrecio.Width = 200;
+            // 
+            // CTotal
+            // 
+            this.CTotal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CTotal.HeaderText = "Total";
+            this.CTotal.Name = "CTotal";
+            this.CTotal.ReadOnly = true;
+            this.CTotal.Width = 200;
+            // 
             // FrmFacturaGestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,7 +474,9 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "FrmFacturaGestion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nueva Factura";
             this.Load += new System.EventHandler(this.FrmFacturaGestion_Load);
             this.panel1.ResumeLayout(false);
@@ -476,12 +485,12 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleFactura)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleFactura)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -494,7 +503,6 @@
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.Label lblVendedor;
         private System.Windows.Forms.Label lblPedido;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button BtnAgregarLinea;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -525,5 +533,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CCantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn CPrecio;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTotal;
+        public System.Windows.Forms.Panel panel3;
     }
 }

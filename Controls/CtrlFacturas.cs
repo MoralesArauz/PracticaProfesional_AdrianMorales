@@ -13,7 +13,7 @@ namespace Esperanza.Controls
 {
     public partial class CtrlFacturas : UserControl
     {
-        private Logica.Models.Factura MiFactura { get; set; }
+        public Logica.Models.Factura MiFactura { get; set; }
         private DataTable ListaFacturas { get; set; }
 
         public CtrlFacturas()

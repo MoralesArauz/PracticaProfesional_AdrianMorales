@@ -86,6 +86,12 @@
     <Compile Include="Controls\CtrlUsuarios.Designer.cs">
       <DependentUpon>CtrlUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmClienteBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmClienteBuscar.Designer.cs">
+      <DependentUpon>FrmClienteBuscar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmClienteGestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,12 @@
     <Compile Include="Forms\FrmProductoAgregar.Designer.cs">
       <DependentUpon>FrmProductoAgregar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmProductoBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProductoBuscar.Designer.cs">
+      <DependentUpon>FrmProductoBuscar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmProductoGestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +154,9 @@
     <EmbeddedResource Include="Controls\CtrlUsuarios.resx">
       <DependentUpon>CtrlUsuarios.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmClienteBuscar.resx">
+      <DependentUpon>FrmClienteBuscar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmClienteGestion.resx">
       <DependentUpon>FrmClienteGestion.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProductoAgregar.resx">
       <DependentUpon>FrmProductoAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProductoBuscar.resx">
+      <DependentUpon>FrmProductoBuscar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProductoGestion.resx">
       <DependentUpon>FrmProductoGestion.cs</DependentUpon>
