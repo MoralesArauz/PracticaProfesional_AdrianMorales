@@ -74,6 +74,7 @@
             this.BtnSeleccionar.TabIndex = 4;
             this.BtnSeleccionar.Text = "Seleccionar";
             this.BtnSeleccionar.UseVisualStyleBackColor = false;
+            this.BtnSeleccionar.Click += new System.EventHandler(this.BtnSeleccionar_Click);
             // 
             // TxtDescripcion
             // 
@@ -137,6 +138,7 @@
             this.DgvListaProductos.Size = new System.Drawing.Size(1137, 466);
             this.DgvListaProductos.TabIndex = 7;
             this.DgvListaProductos.VirtualMode = true;
+            this.DgvListaProductos.DoubleClick += new System.EventHandler(this.DgvListaProductos_DoubleClick);
             // 
             // CID_Producto
             // 

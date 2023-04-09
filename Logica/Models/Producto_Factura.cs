@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,9 @@ namespace Logica.Models
         public double Costo { get; set; }
         public double Descuento { get; set; } = 0;
         public double Impuesto { get; set; }
+        public double Total { get; set; }
 
-        public Producto_Factura(int iD_Producto, int iD_Factura, double cantidad, double precio, double costo, double descuento, double impuesto)
+        public Producto_Factura(int iD_Producto, int iD_Factura, double cantidad, double precio, double costo, double descuento, double impuesto, double total)
         {
             ID_Producto = iD_Producto;
             ID_Factura = iD_Factura;
@@ -26,6 +28,7 @@ namespace Logica.Models
             Costo = costo;
             Descuento = descuento;
             Impuesto = impuesto;
+            Total = total;
         }
 
         public Producto_Factura() { }
@@ -33,7 +36,27 @@ namespace Logica.Models
        
         public bool Agregar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+
+            Conexion MiCnn = new Conexion();
+
+            // Se agregan los parámetros necesarios para el insert
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Producto", ID_Producto));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Cantidad", Cantidad));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Precio", Precio));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Costo", Costo));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Descuento", Descuento));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Impuesto", Impuesto));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Total", Total));
+
+            // Se ejecuta el SP
+            int resultado = MiCnn.DMLUpdateDeleteInsert("SPProductoFacturaAgregar");
+            if (resultado > 0)
+            {
+                R = true;
+            }
+            return R;
         }
         public bool Anular()
         {
@@ -62,6 +85,19 @@ namespace Logica.Models
         private bool AnularPorLinea()
         {
             throw new System.Exception("Not implemented");
+        }
+
+        public override string ToString() 
+        {
+            return string.Format("ID: {0}, ID_fac: {1}, Cant: {2}, Precio: {3}, Costo: {4}, Desc: {5}, Imp: {6}, Total: {7}",
+                ID_Producto,
+                ID_Factura,
+                Cantidad,
+                Precio,
+                Costo,
+                Descuento,
+                Impuesto,
+                Total);
         }
     }
 }

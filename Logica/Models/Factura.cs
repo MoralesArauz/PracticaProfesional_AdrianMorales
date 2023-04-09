@@ -36,6 +36,23 @@ namespace Logica.Models
         public bool Agregar()
         {
             bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Total", Total));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Subtotal", SubTotal));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Impuesto", Impuesto));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Descuento", Descuento));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Cliente", MiCliente.ID_Cliente));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Usuario", MiUsuario.ID_Usuario));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Observaciones", Observaciones));
+
+
+            Object resultado = MiCnn.DMLConRetornoEscalar("SPFacturaAgregar");
+
+            if (resultado != null)
+            {
+                ID_Factura = Convert.ToInt32(resultado.ToString());
+                R = true;
+            }
 
             return R;
         }
@@ -73,5 +90,17 @@ namespace Logica.Models
             return R;
         }
 
+        public override string ToString()
+        {
+            return "ID factura: " + ID_Factura + "\n"
+                + "Numero Fac: " + Numero_Factura + "\n"
+                + "Total: " + Total + "\n"
+                + "SubTotal: " + SubTotal + "\n"
+                + "Impuesto: " + Impuesto + "\n"
+                + "Descuento: " + Descuento + "\n"
+                + "ID Cliente: " + MiCliente.ID_Cliente + "\n"
+                + "ID Usuario: " + MiUsuario.ID_Usuario + "\n"
+                + "Observaciones: " + Observaciones + "\n";
+        }
     }
 }

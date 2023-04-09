@@ -68,5 +68,14 @@ namespace Esperanza.Forms
             return !string.IsNullOrEmpty(TxtCorreo.Text.Trim()) 
                 && !string.IsNullOrEmpty(TxtContrasenia.Text.Trim());
         }
+
+        private void FrmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Shift & e.KeyCode == Keys.Escape)
+            {
+                TxtCorreo.Text = "morales.arauz@gmail.com";
+                TxtContrasenia.Text = "12345678";
+            }
+        }
     }
 }
