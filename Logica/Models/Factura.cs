@@ -59,12 +59,46 @@ namespace Logica.Models
         public bool Anular()
         {
             bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPFacturaAnular");
+
+            if (retorno > 0)
+            {
+                R = true;
+            }
 
             return R;
         }
         public Factura ConsultarPorID()
         {
-            throw new System.Exception("Not implemented");
+            Factura R = new Factura();
+            Conexion MiCnn = new Conexion();
+
+            //Asigna el valor del ID para hacer la búsqueda en la BD 
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Factura));
+
+            DataTable retorno = MiCnn.DMLSelect("SPFacturaConsultar");
+            if (retorno != null && retorno.Rows.Count > 0)
+            {
+                DataRow Fila = retorno.Rows[0];
+
+                R.ID_Factura = Convert.ToInt32(Fila["ID_Factura"]); ;
+                R.Numero_Factura = Convert.ToString(Fila["Numero_Factura"]);
+                R.Total = Convert.ToDouble(Fila["Total"]);
+                R.SubTotal = Convert.ToDouble(Fila["SubTotal"]);
+ 
+                R.Impuesto = Convert.ToDouble(Fila["Impuesto"]); ;
+             
+                R.MiCliente.ID_Cliente = Convert.ToInt32(Fila["ID_Cliente"]);
+                R.MiUsuario.ID_Usuario = Convert.ToInt32(Fila["ID_Usuario"]);
+
+                R.Fecha_Creacion = Convert.ToDateTime(Fila["Fecha_Creacion"]);
+                R.MiEstado.ID_Estado_Factura = Convert.ToInt32(Fila["ID_Estado_Factura"]);
+                R.Observaciones = Convert.ToString(Fila["Observaciones"]);
+            }
+            return R;
         }
         public DataTable ConsultarPorCliente()
         {
@@ -77,19 +111,7 @@ namespace Logica.Models
             R = MiCnn.DMLSelect("SPFacturasListar");
             return R;
         }
-        private bool AgregarLinea()
-        {
-            bool R = false;
-
-            return R;
-        }
-        private bool EliminarLinea()
-        {
-            bool R = false;
-
-            return R;
-        }
-
+        
         public override string ToString()
         {
             return "ID factura: " + ID_Factura + "\n"

@@ -99,5 +99,14 @@ namespace Logica.Models
                 Impuesto,
                 Total);
         }
+
+        public DataTable ListarPorFactura()
+        {
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+            R = MiCnn.DMLSelect("SPProducto_FacturaListarPorID");
+            return R;
+        }
     }
 }

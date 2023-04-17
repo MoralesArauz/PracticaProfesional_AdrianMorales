@@ -53,7 +53,10 @@ namespace Logica.Models
         }
         public DataTable Listar(bool VerActivo = true)
         {
-            throw new System.Exception("Not implemented");
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            R = MiCnn.DMLSelect("SPEstadoFacturaListarComboBox");
+            return R;
         }
 
     }

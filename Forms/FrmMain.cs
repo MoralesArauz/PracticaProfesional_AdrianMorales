@@ -122,5 +122,15 @@ namespace Esperanza.Forms
             ControlFacturas.Dock = DockStyle.Fill;
             PnlContenedor.Controls.Add(ControlFacturas);
         }
+
+        private void ingresosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lblModulo.Text = "Ingresos";
+            UserControl ControlIngresos = new Controls.CtrlIngresos();
+            PnlContenedor.Controls.Clear();
+
+            ControlIngresos.Dock = DockStyle.Fill;
+            PnlContenedor.Controls.Add(ControlIngresos);
+        }
     }
 }

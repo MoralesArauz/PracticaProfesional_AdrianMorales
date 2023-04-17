@@ -44,6 +44,8 @@
             this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CBoxEstado = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvListaFacturas)).BeginInit();
@@ -56,7 +58,7 @@
             this.consultarToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(982, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1224, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -70,14 +72,17 @@
             // 
             // consultarToolStripMenuItem
             // 
-            this.consultarToolStripMenuItem.Image = global::Esperanza.Properties.Resources.imprimir;
+            this.consultarToolStripMenuItem.Image = global::Esperanza.Properties.Resources.buscar;
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.consultarToolStripMenuItem.Text = "Imprimir";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.consultarToolStripMenuItem.Text = "Consultar";
+            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.CBoxEstado);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.CboxClientes);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -85,7 +90,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 67);
+            this.panel1.Size = new System.Drawing.Size(1224, 67);
             this.panel1.TabIndex = 3;
             // 
             // CboxClientes
@@ -93,7 +98,7 @@
             this.CboxClientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboxClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CboxClientes.FormattingEnabled = true;
-            this.CboxClientes.Location = new System.Drawing.Point(571, 27);
+            this.CboxClientes.Location = new System.Drawing.Point(514, 22);
             this.CboxClientes.MaxDropDownItems = 100;
             this.CboxClientes.Name = "CboxClientes";
             this.CboxClientes.Size = new System.Drawing.Size(296, 28);
@@ -103,7 +108,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(500, 31);
+            this.label2.Location = new System.Drawing.Point(443, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 20);
             this.label2.TabIndex = 2;
@@ -151,9 +156,11 @@
             this.DgvListaFacturas.ReadOnly = true;
             this.DgvListaFacturas.RowHeadersVisible = false;
             this.DgvListaFacturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvListaFacturas.Size = new System.Drawing.Size(982, 418);
+            this.DgvListaFacturas.Size = new System.Drawing.Size(1224, 418);
             this.DgvListaFacturas.TabIndex = 4;
             this.DgvListaFacturas.VirtualMode = true;
+            this.DgvListaFacturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaFacturas_CellClick);
+            this.DgvListaFacturas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaFacturas_CellDoubleClick);
             // 
             // CID
             // 
@@ -212,6 +219,25 @@
             this.CEstado.Name = "CEstado";
             this.CEstado.ReadOnly = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(872, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Estado";
+            // 
+            // CBoxEstado
+            // 
+            this.CBoxEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBoxEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBoxEstado.FormattingEnabled = true;
+            this.CBoxEstado.Location = new System.Drawing.Point(918, 18);
+            this.CBoxEstado.Name = "CBoxEstado";
+            this.CBoxEstado.Size = new System.Drawing.Size(190, 28);
+            this.CBoxEstado.TabIndex = 5;
+            // 
             // CtrlFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +247,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "CtrlFacturas";
-            this.Size = new System.Drawing.Size(982, 509);
+            this.Size = new System.Drawing.Size(1224, 509);
             this.Load += new System.EventHandler(this.CtrlFacturas_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -251,5 +277,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn CFecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
+        private System.Windows.Forms.ComboBox CBoxEstado;
+        private System.Windows.Forms.Label label3;
     }
 }

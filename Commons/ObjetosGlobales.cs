@@ -17,6 +17,7 @@ namespace Esperanza.Commons
         public static Form FormProductoAgregar = new Forms.FrmProductoAgregar();
         public static Form FormProductoGestion = new Forms.FrmProductoGestion();
         public static Forms.FrmFacturaGestion FormFacturaGestion = new Forms.FrmFacturaGestion();
+        public static Forms.FrmIngresoGestion FormIngresoGestion = new Forms.FrmIngresoGestion();
 
 
         private static char DecimalSeparator = Convert.ToChar(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToString());

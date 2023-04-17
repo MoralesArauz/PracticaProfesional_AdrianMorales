@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,8 @@ namespace Esperanza.Forms
         public Controls.CtrlFacturas CtrlPadre { get; set; }
         public Logica.Models.Factura MiFactura { get; set; }
 
+        public DataTable DetalleProductos { get; set; }
+
         // para llevar la cuenta de las líneas agregadas a la factura
         public static int cont_fila = 0;
         public static double total = 0;
@@ -26,18 +29,64 @@ namespace Esperanza.Forms
             InitializeComponent();
         }
 
-        public FrmFacturaGestion(Controls.CtrlFacturas parent, Logica.Models.Factura factura)
+        public FrmFacturaGestion(Controls.CtrlFacturas parent, Logica.Models.Factura factura = null)
         {
             InitializeComponent();
             CtrlPadre = parent;
             MiFactura = factura;
+            DetalleProductos = new DataTable();
         }
 
         private void FrmFacturaGestion_Load(object sender, EventArgs e)
         {
-            lblVendedor.Text += Commons.ObjetosGlobales.MiUsuarioDeSistema.Nombre + " " + Commons.ObjetosGlobales.MiUsuarioDeSistema.Apellido;
-            MiFactura.MiUsuario.ID_Usuario = Commons.ObjetosGlobales.MiUsuarioDeSistema.ID_Usuario;
-            TxtImpuestoLinea.Text = "13";
+            if (MiFactura != null)
+            {
+                CargarFactura();
+            }
+            else
+            {
+                MiFactura = new Logica.Models.Factura();
+                lblVendedor.Text += Commons.ObjetosGlobales.MiUsuarioDeSistema.Nombre + " " + Commons.ObjetosGlobales.MiUsuarioDeSistema.Apellido;
+                MiFactura.MiUsuario.ID_Usuario = Commons.ObjetosGlobales.MiUsuarioDeSistema.ID_Usuario;
+                TxtImpuestoLinea.Text = "13";
+            }
+        }
+
+        //Carga toda la informacion de la factura que se escogio e inavilita los controles que se utilizan al ingresar una factura nueva
+        private void CargarFactura()
+        {
+            lblFactura.Text += " " + MiFactura.Numero_Factura;
+            MiFactura.MiUsuario = MiFactura.MiUsuario.Consultar();
+            MiFactura.MiCliente = MiFactura.MiCliente.ConsultarPorID();
+            lblVendedor.Text += " " + MiFactura.MiUsuario.Nombre + " " + MiFactura.MiUsuario.Apellido;
+            LblCliente.Text += " " + MiFactura.MiCliente.Nombre + " " + MiFactura.MiCliente.Apellido;
+            TxtCliente.Text = Convert.ToString(MiFactura.MiCliente.ID_Cliente);
+            TxtCliente.ReadOnly = true;
+            btnAnular.Visible = true;
+            BtnGuardar.Enabled = false;
+            TxtCodigoProducto.Enabled = false;
+            TxtPrecio.Enabled = false;
+            TxtImpuestoLinea.Enabled = false;
+            TxtCantidad.Enabled = false;
+            TxtObservaciones.Text = MiFactura.Observaciones;
+            TxtObservaciones.ReadOnly = true;
+            TxtSubtotal.Text = MiFactura.SubTotal.ToString("0,0.0", CultureInfo.InvariantCulture);
+            TxtImpuesto.Text = MiFactura.Impuesto.ToString("0,0.0", CultureInfo.InvariantCulture);
+            TxtTotal.Text = MiFactura.Total.ToString("0,0.0", CultureInfo.InvariantCulture);
+            BtnAgregarLinea.Enabled = false;
+            contextMenuStrip1.Enabled = false;
+            // Cambia el texto del form para mostrar el estado de la factura
+            Text = MiFactura.MiEstado.ID_Estado_Factura == 1 ? "Facturado" : "Anulado";
+            LlenarDetalleFactura();
+        }
+
+        private void LlenarDetalleFactura()
+        {
+            Logica.Models.Producto_Factura producto_Factura = new Logica.Models.Producto_Factura();
+            producto_Factura.ID_Factura = MiFactura.ID_Factura;
+            DetalleProductos = producto_Factura.ListarPorFactura();
+            DgvDetalleFactura.DataSource = DetalleProductos;
+            DgvDetalleFactura.ClearSelection();
         }
 
         private void TxtCliente_DoubleClick(object sender, EventArgs e)
@@ -114,7 +163,6 @@ namespace Esperanza.Forms
                 e.Handled = true;
 
                 CargarProducto();
-
             }
         }
 
@@ -194,9 +242,9 @@ namespace Esperanza.Forms
                 foreach (DataGridViewRow fila in DgvDetalleFactura.Rows)
                 {
                     subtotal += Convert.ToDouble(fila.Cells[5].Value);
-                    impuesto += Convert.ToDouble(fila.Cells[5].Value) * (Convert.ToDouble(fila.Cells[4].Value) / 100);
-                    total += subtotal + impuesto;
+                    impuesto += Convert.ToDouble(fila.Cells[4].Value);
                 }
+                total = subtotal + impuesto;
 
                 TxtTotal.Text = total.ToString("0,0.0", CultureInfo.InvariantCulture);
                 MiFactura.Total = total;
@@ -218,16 +266,15 @@ namespace Esperanza.Forms
         // Revisar el calculo del impuesto, que guarde el monto y no el porcentaje
         private void AgregarLineaFactura()
         {
-            DgvDetalleFactura.Rows.Add(TxtCodigoProducto.Text.Trim(), TxtDescripcion.Text.Trim(), 
-                TxtCantidad.Text.Trim(), TxtPrecio.Text.Trim(), TxtImpuestoLinea.Text.Trim());
-            
-            // Multiplica Cantidad por Precio
-            double cantidad = Convert.ToDouble(DgvDetalleFactura.Rows[cont_fila].Cells[2].Value);
-            double impuesto = Convert.ToDouble(DgvDetalleFactura.Rows[cont_fila].Cells[4].Value);
-            //Convert.ToDouble(fila.Cells[5].Value) * (Convert.ToDouble(fila.Cells[4].Value) / 100);
-            double precio = Convert.ToDouble(DgvDetalleFactura.Rows[cont_fila].Cells[3].Value);
-            precio = precio + (precio * (impuesto / 100));
+            double cantidad = Convert.ToDouble(TxtCantidad.Text.Trim());
+            double impuesto = Convert.ToDouble(TxtImpuestoLinea.Text.Trim());
+            double precio = Convert.ToDouble(TxtPrecio.Text.Trim());
+            impuesto = CacularImpuesto(impuesto, precio, cantidad);
+           
             double totalLinea = cantidad * precio;
+
+            DgvDetalleFactura.Rows.Add(TxtCodigoProducto.Text.Trim(), TxtDescripcion.Text.Trim(),
+              TxtCantidad.Text.Trim(), TxtPrecio.Text.Trim(), Convert.ToString(impuesto),Convert.ToString(totalLinea));
 
             // Se crea el detalle de la factura para agregarlo a la lista
             MiFactura.producto_Factura.Add(new Logica.Models.Producto_Factura(MiFactura.MiProducto.ID_Producto,
@@ -236,14 +283,58 @@ namespace Esperanza.Forms
                                                                               precio,
                                                                               MiFactura.MiProducto.Costo,0,impuesto,totalLinea));
             //Se define el total de la línea
-            DgvDetalleFactura.Rows[cont_fila].Cells[5].Value = totalLinea;
+            //DgvDetalleFactura.Rows[cont_fila].Cells[5].Value = totalLinea;
             cont_fila++;
+        }
+
+        //Calcula el monto del impuesto segun el porcentaje, precio y la cantidad de articulos
+        private double CacularImpuesto(double impuesto, double precio, double cantidad)
+        {
+            double R = 0;
+            R = (precio * (impuesto / 100)) * cantidad;
+            return R;
+        }
+
+        private bool ExistenciasInsuficientes()
+        {
+            double cantidadDigitada = Convert.ToDouble(TxtCantidad.Text.Trim());
+
+            if (cantidadDigitada > MiFactura.MiProducto.Cantidad)
+            {
+                MessageBox.Show("Solo hay "
+                    + MiFactura.MiProducto.Cantidad
+                    + " unidades de este producto en el inventario", "Existencias insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+
+            foreach (DataGridViewRow fila in DgvDetalleFactura.Rows)
+            { 
+                if (fila.Cells[0].Value.Equals(MiFactura.MiProducto.Cod_Producto))
+                {
+                    cantidadDigitada += Convert.ToDouble(fila.Cells[2].Value);
+                }
+            }
+
+            if (cantidadDigitada > MiFactura.MiProducto.Cantidad)
+            {
+                MessageBox.Show("Ya existe una linea con ese producto\n" 
+                    + "La suma supera las existencias disponibles: "
+                    + MiFactura.MiProducto.Cantidad, "Existencias insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+
+            return false;
         }
 
         // Valida que la linea que se desea agregar a la factura tenga todos los datos necesarios
         private bool ValidarLinea()
         {
             bool R = false;
+
+            if (ExistenciasInsuficientes())
+            {
+                return false;
+            }
 
             if (!string.IsNullOrEmpty(MiFactura.MiProducto.Cod_Producto) &&
                 !string.IsNullOrEmpty(TxtCantidad.Text.Trim()) &&
@@ -284,6 +375,7 @@ namespace Esperanza.Forms
                 {
                     MessageBox.Show("La factura se agrego correctamente");
                     GuardarLineasFactura();
+                    CtrlPadre.LlenarListaFacturas();
                     Close(); // Se cierra el formulario de creacion de factura
                 }
                 else 
@@ -414,10 +506,17 @@ namespace Esperanza.Forms
                 DialogResult respuesta = MessageBox.Show("Está seguro que desea eliminar la línea?", "Eliminar Línea", MessageBoxButtons.YesNo);
                 if (respuesta == DialogResult.Yes)
                 {
-                    // Resta al total el subtotal de la celda que se está eliminando, el cual se encuentra en la columna 4
-                    total = total - (Convert.ToDouble(DgvDetalleFactura.Rows[DgvDetalleFactura.CurrentRow.Index].Cells[4].Value));
+                    // Se actualizan los valores de subtotal, impuesto y total en la tabla y en la clase factura
+                    subtotal = subtotal - (Convert.ToDouble(DgvDetalleFactura.Rows[DgvDetalleFactura.CurrentRow.Index].Cells[5].Value));
+                    MiFactura.SubTotal = subtotal;
+                    impuesto = impuesto - (Convert.ToDouble(DgvDetalleFactura.Rows[DgvDetalleFactura.CurrentRow.Index].Cells[4].Value));
+                    MiFactura.Impuesto = impuesto;
+                    total = subtotal + impuesto;
+                    MiFactura.Total = total;
                     // Se actualiza el total de la factura
                     TxtTotal.Text = total.ToString();
+                    TxtSubtotal.Text = subtotal.ToString();
+                    TxtImpuesto.Text = impuesto.ToString();
                     MiFactura.producto_Factura.RemoveAt(DgvDetalleFactura.CurrentRow.Index);
                     // Eliminamos del DataGrid la fila que se desea eliminar
                     DgvDetalleFactura.Rows.RemoveAt(DgvDetalleFactura.CurrentRow.Index);
@@ -432,6 +531,26 @@ namespace Esperanza.Forms
             if (!string.IsNullOrEmpty(TxtObservaciones.Text.Trim()))
             {
                 MiFactura.Observaciones = TxtObservaciones.Text.Trim();
+            }
+        }
+
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(this, "Esta seguri que desea anular la factura?", 
+                "Anulacion de Factura", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                if (MiFactura.Anular())
+                {
+                    MessageBox.Show("La factura se ha anulado correctamente", 
+                        "Anulacion de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Se muestra la devolucion que se ha creado.
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido anular la factura", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
