@@ -19,7 +19,8 @@ namespace Logica.Models
 
         public Usuario MiUsuario { get; set; }
         public Producto MiProducto { get; set; }
-
+        public string Observaciones { get; set; }
+        public bool Estado { get; set; }
         public Ingreso() 
         {
             MiUsuario = new Usuario();
@@ -29,7 +30,26 @@ namespace Logica.Models
 
         public Ingreso ConsultarPorID()
         {
-            throw new System.Exception("Not implemented");
+            Ingreso R = new Ingreso();
+            Conexion MiCnn = new Conexion();
+
+            //Asigna el valor del ID para hacer la búsqueda en la BD 
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", ID_Ingreso));
+
+            DataTable retorno = MiCnn.DMLSelect("SPIngresoConsultarPorID");
+            if (retorno != null && retorno.Rows.Count > 0)
+            {
+                DataRow Fila = retorno.Rows[0];
+
+                R.ID_Ingreso = Convert.ToInt32(Fila["ID_Ingreso"]); ;
+                R.Numero_Ingreso = Convert.ToString(Fila["Numero_Ingreso"]);
+                R.Total = Convert.ToDouble(Fila["Total"]);
+                R.MiUsuario.ID_Usuario = Convert.ToInt32(Fila["ID_Usuario"]);
+                R.Fecha_Ingreso = Convert.ToDateTime(Fila["Fecha_Ingreso"]);
+                R.Estado = Convert.ToInt32(Fila["Estado"]) == 1;
+                R.Observaciones = Convert.ToString(Fila["Observaciones"]);
+            }
+            return R;
         }
         public Ingreso ConsultarPorUsuario()
         {
@@ -37,7 +57,22 @@ namespace Logica.Models
         }
         public bool Agregar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Total", Total));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Usuario", MiUsuario.ID_Usuario));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@Observaciones", Observaciones));
+
+
+            Object resultado = MiCnn.DMLConRetornoEscalar("SPIngresoAgregar");
+
+            if (resultado != null)
+            {
+                ID_Ingreso = Convert.ToInt32(resultado.ToString());
+                R = true;
+            }
+
+            return R;
         }
         public bool Anular()
         {

@@ -514,9 +514,9 @@ namespace Esperanza.Forms
                     total = subtotal + impuesto;
                     MiFactura.Total = total;
                     // Se actualiza el total de la factura
-                    TxtTotal.Text = total.ToString();
-                    TxtSubtotal.Text = subtotal.ToString();
-                    TxtImpuesto.Text = impuesto.ToString();
+                    TxtTotal.Text = total.ToString("0,0.0", CultureInfo.InvariantCulture);
+                    TxtSubtotal.Text = subtotal.ToString("0,0.0", CultureInfo.InvariantCulture);
+                    TxtImpuesto.Text = impuesto.ToString("0,0.0", CultureInfo.InvariantCulture);
                     MiFactura.producto_Factura.RemoveAt(DgvDetalleFactura.CurrentRow.Index);
                     // Eliminamos del DataGrid la fila que se desea eliminar
                     DgvDetalleFactura.Rows.RemoveAt(DgvDetalleFactura.CurrentRow.Index);

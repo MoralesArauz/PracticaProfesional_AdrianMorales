@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmIngresoGestion));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -46,7 +47,7 @@
             this.TxtCosto = new System.Windows.Forms.TextBox();
             this.TxtCantidad = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
-            this.TxtCodigoProducto = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -62,6 +63,8 @@
             this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripIngresos = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.eliminarLineaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -70,6 +73,7 @@
             this.panel8.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleIngreso)).BeginInit();
+            this.contextMenuStripIngresos.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -123,6 +127,7 @@
             this.BtnGuardar.TabIndex = 3;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // lblUsuario
             // 
@@ -158,7 +163,7 @@
             this.panel3.Controls.Add(this.TxtCosto);
             this.panel3.Controls.Add(this.TxtCantidad);
             this.panel3.Controls.Add(this.TxtDescripcion);
-            this.panel3.Controls.Add(this.TxtCodigoProducto);
+            this.panel3.Controls.Add(this.TxtCodigo);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 91);
             this.panel3.Name = "panel3";
@@ -193,6 +198,7 @@
             this.BtnAgregarLinea.TabIndex = 10;
             this.BtnAgregarLinea.Text = "Agregar Línea";
             this.BtnAgregarLinea.UseVisualStyleBackColor = false;
+            this.BtnAgregarLinea.Click += new System.EventHandler(this.BtnAgregarLinea_Click);
             // 
             // label5
             // 
@@ -247,6 +253,7 @@
             this.TxtCosto.Name = "TxtCosto";
             this.TxtCosto.Size = new System.Drawing.Size(115, 20);
             this.TxtCosto.TabIndex = 3;
+            this.TxtCosto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCosto_KeyPress);
             // 
             // TxtCantidad
             // 
@@ -254,6 +261,7 @@
             this.TxtCantidad.Name = "TxtCantidad";
             this.TxtCantidad.Size = new System.Drawing.Size(119, 20);
             this.TxtCantidad.TabIndex = 2;
+            this.TxtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCantidad_KeyPress);
             // 
             // TxtDescripcion
             // 
@@ -263,15 +271,15 @@
             this.TxtDescripcion.Size = new System.Drawing.Size(379, 20);
             this.TxtDescripcion.TabIndex = 1;
             // 
-            // TxtCodigoProducto
+            // TxtCodigo
             // 
-            this.TxtCodigoProducto.Location = new System.Drawing.Point(22, 77);
-            this.TxtCodigoProducto.Name = "TxtCodigoProducto";
-            this.TxtCodigoProducto.Size = new System.Drawing.Size(100, 20);
-            this.TxtCodigoProducto.TabIndex = 0;
-            this.TxtCodigoProducto.DoubleClick += new System.EventHandler(this.TxtCodigoProducto_DoubleClick);
-            this.TxtCodigoProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCodigoProducto_KeyPress);
-            this.TxtCodigoProducto.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TxtCodigoProducto_PreviewKeyDown);
+            this.TxtCodigo.Location = new System.Drawing.Point(22, 77);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(100, 20);
+            this.TxtCodigo.TabIndex = 0;
+            this.TxtCodigo.DoubleClick += new System.EventHandler(this.TxtCodigoProducto_DoubleClick);
+            this.TxtCodigo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCodigoProducto_KeyPress);
+            this.TxtCodigo.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TxtCodigoProducto_PreviewKeyDown);
             // 
             // tableLayoutPanel1
             // 
@@ -328,6 +336,7 @@
             this.TxtObservaciones.Name = "TxtObservaciones";
             this.TxtObservaciones.Size = new System.Drawing.Size(718, 97);
             this.TxtObservaciones.TabIndex = 7;
+            this.TxtObservaciones.Leave += new System.EventHandler(this.TxtObservaciones_Leave);
             // 
             // panel7
             // 
@@ -380,6 +389,7 @@
             this.CCantidad,
             this.CCosto,
             this.CTotal});
+            this.DgvDetalleIngreso.ContextMenuStrip = this.contextMenuStripIngresos;
             this.DgvDetalleIngreso.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DgvDetalleIngreso.Location = new System.Drawing.Point(3, 3);
             this.DgvDetalleIngreso.MultiSelect = false;
@@ -434,6 +444,20 @@
             this.CTotal.ReadOnly = true;
             this.CTotal.Width = 200;
             // 
+            // contextMenuStripIngresos
+            // 
+            this.contextMenuStripIngresos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eliminarLineaToolStripMenuItem});
+            this.contextMenuStripIngresos.Name = "contextMenuStripIngresos";
+            this.contextMenuStripIngresos.Size = new System.Drawing.Size(149, 26);
+            // 
+            // eliminarLineaToolStripMenuItem
+            // 
+            this.eliminarLineaToolStripMenuItem.Name = "eliminarLineaToolStripMenuItem";
+            this.eliminarLineaToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.eliminarLineaToolStripMenuItem.Text = "Eliminar Linea";
+            this.eliminarLineaToolStripMenuItem.Click += new System.EventHandler(this.eliminarLineaToolStripMenuItem_Click);
+            // 
             // FrmIngresoGestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,6 +484,7 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvDetalleIngreso)).EndInit();
+            this.contextMenuStripIngresos.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -483,7 +508,7 @@
         private System.Windows.Forms.TextBox TxtCosto;
         private System.Windows.Forms.TextBox TxtCantidad;
         private System.Windows.Forms.TextBox TxtDescripcion;
-        private System.Windows.Forms.TextBox TxtCodigoProducto;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel8;
@@ -499,5 +524,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CCantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCosto;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTotal;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripIngresos;
+        private System.Windows.Forms.ToolStripMenuItem eliminarLineaToolStripMenuItem;
     }
 }

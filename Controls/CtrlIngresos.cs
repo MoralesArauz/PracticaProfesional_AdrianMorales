@@ -28,9 +28,9 @@ namespace Esperanza.Controls
             LlenarListaIngresos();
         }
 
-        private void LlenarListaIngresos()
+        public void LlenarListaIngresos(bool verActivos = true)
         {
-            ListaIngresos = MiIngreso.Listar();
+            ListaIngresos = MiIngreso.Listar(verActivos);
             DgvListaIngresos.DataSource = ListaIngresos;
             DgvListaIngresos.ClearSelection();
         }
@@ -62,6 +62,53 @@ namespace Esperanza.Controls
 
                 Commons.ObjetosGlobales.FormIngresoGestion.Show();
             }
+        }
+
+        private void checkBoxEstado_CheckedChanged(object sender, EventArgs e)
+        {
+            LlenarListaIngresos(checkBoxEstado.Checked);
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConsultarIngreso();
+        }
+
+        private void ConsultarIngreso()
+        {
+            // Si el formulario ya se ha abierto y se intenta abrir de nuevo, entonces se trae al frente
+            // De lo contrario se muestra.
+            if (Commons.ObjetosGlobales.FormIngresoGestion.Visible)
+            {
+                Commons.ObjetosGlobales.FormIngresoGestion.BringToFront();
+            }
+            else
+            {
+                // Reinicia el formulario por si se ha cerrado anteriormente.
+                Commons.ObjetosGlobales.FormIngresoGestion = new Forms.FrmIngresoGestion(this,MiIngreso);
+
+                Commons.ObjetosGlobales.FormIngresoGestion.Show();
+            }
+        }
+
+        private void DgvListaIngresos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (DgvListaIngresos.SelectedRows.Count == 1)
+            {
+                //LimpiarFormulario(false);
+
+                DataGridViewRow MiFila = DgvListaIngresos.SelectedRows[0];
+                // Asignar el valor del ID a MiUsuarioLocal para hacer la búsqueda en la base de datos y traer el valor de sus campos en la tabla
+                MiIngreso.ID_Ingreso = Convert.ToInt32(MiFila.Cells["CID"].Value);
+
+                // Aquí se cargan los atributos de MiUsuarioLocal
+                MiIngreso = MiIngreso.ConsultarPorID();
+            }
+        }
+
+        private void DgvListaIngresos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ConsultarIngreso();
         }
     }
 }

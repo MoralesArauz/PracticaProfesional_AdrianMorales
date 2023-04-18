@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.nuevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxEstado = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,8 +43,6 @@
             this.CFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CObservaciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nuevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvListaIngresos)).BeginInit();
@@ -58,6 +58,22 @@
             this.menuStrip1.Size = new System.Drawing.Size(993, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // nuevaToolStripMenuItem
+            // 
+            this.nuevaToolStripMenuItem.Image = global::Esperanza.Properties.Resources.nuevo;
+            this.nuevaToolStripMenuItem.Name = "nuevaToolStripMenuItem";
+            this.nuevaToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.nuevaToolStripMenuItem.Text = "Nuevo";
+            this.nuevaToolStripMenuItem.Click += new System.EventHandler(this.nuevaToolStripMenuItem_Click);
+            // 
+            // consultarToolStripMenuItem
+            // 
+            this.consultarToolStripMenuItem.Image = global::Esperanza.Properties.Resources.buscar;
+            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.consultarToolStripMenuItem.Text = "Consultar";
+            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -82,6 +98,7 @@
             this.checkBoxEstado.TabIndex = 2;
             this.checkBoxEstado.Text = "Activos";
             this.checkBoxEstado.UseVisualStyleBackColor = true;
+            this.checkBoxEstado.CheckedChanged += new System.EventHandler(this.checkBoxEstado_CheckedChanged);
             // 
             // label1
             // 
@@ -128,6 +145,8 @@
             this.DgvListaIngresos.Size = new System.Drawing.Size(993, 441);
             this.DgvListaIngresos.TabIndex = 5;
             this.DgvListaIngresos.VirtualMode = true;
+            this.DgvListaIngresos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaIngresos_CellClick);
+            this.DgvListaIngresos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListaIngresos_CellDoubleClick);
             // 
             // CID
             // 
@@ -184,21 +203,6 @@
             this.CEstado.HeaderText = "Estado";
             this.CEstado.Name = "CEstado";
             this.CEstado.ReadOnly = true;
-            // 
-            // nuevaToolStripMenuItem
-            // 
-            this.nuevaToolStripMenuItem.Image = global::Esperanza.Properties.Resources.nuevo;
-            this.nuevaToolStripMenuItem.Name = "nuevaToolStripMenuItem";
-            this.nuevaToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
-            this.nuevaToolStripMenuItem.Text = "Nuevo";
-            this.nuevaToolStripMenuItem.Click += new System.EventHandler(this.nuevaToolStripMenuItem_Click);
-            // 
-            // consultarToolStripMenuItem
-            // 
-            this.consultarToolStripMenuItem.Image = global::Esperanza.Properties.Resources.buscar;
-            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.consultarToolStripMenuItem.Text = "Consultar";
             // 
             // CtrlIngresos
             // 
