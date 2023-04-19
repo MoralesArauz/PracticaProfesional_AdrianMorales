@@ -184,6 +184,7 @@
             this.btnAnular.Text = "Anular Ingreso";
             this.btnAnular.UseVisualStyleBackColor = false;
             this.btnAnular.Visible = false;
+            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
             // 
             // BtnAgregarLinea
             // 

@@ -71,7 +71,10 @@ namespace Esperanza.Controls
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConsultarIngreso();
+            if (DgvListaIngresos.SelectedRows.Count == 1)
+            {
+                ConsultarIngreso();
+            }
         }
 
         private void ConsultarIngreso()

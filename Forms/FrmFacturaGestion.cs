@@ -62,7 +62,6 @@ namespace Esperanza.Forms
             LblCliente.Text += " " + MiFactura.MiCliente.Nombre + " " + MiFactura.MiCliente.Apellido;
             TxtCliente.Text = Convert.ToString(MiFactura.MiCliente.ID_Cliente);
             TxtCliente.ReadOnly = true;
-            btnAnular.Visible = true;
             BtnGuardar.Enabled = false;
             TxtCodigoProducto.Enabled = false;
             TxtPrecio.Enabled = false;
@@ -77,6 +76,10 @@ namespace Esperanza.Forms
             contextMenuStrip1.Enabled = false;
             // Cambia el texto del form para mostrar el estado de la factura
             Text = MiFactura.MiEstado.ID_Estado_Factura == 1 ? "Facturado" : "Anulado";
+            if (MiFactura.MiEstado.ID_Estado_Factura == 1)
+            {
+                btnAnular.Visible = true;
+            }
             LlenarDetalleFactura();
         }
 
@@ -544,7 +547,13 @@ namespace Esperanza.Forms
                 {
                     MessageBox.Show("La factura se ha anulado correctamente", 
                         "Anulacion de Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    foreach(Logica.Models.Producto_Factura productoLinea in MiFactura.producto_Factura)
+                    {
+                        productoLinea.Anular();
+                    }
 
+                    Text = "Anulado";
+                    btnAnular.Visible = false;
                     // Se muestra la devolucion que se ha creado.
                 }
                 else

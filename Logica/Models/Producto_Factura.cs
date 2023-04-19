@@ -18,8 +18,9 @@ namespace Logica.Models
         public double Descuento { get; set; } = 0;
         public double Impuesto { get; set; }
         public double Total { get; set; }
-
-        public Producto_Factura(int iD_Producto, int iD_Factura, double cantidad, double precio, double costo, double descuento, double impuesto, double total)
+        public bool Estado { get; set; }
+        public Producto_Factura(int iD_Producto, int iD_Factura, double cantidad, 
+            double precio, double costo, double descuento, double impuesto, double total, bool estado = true)
         {
             ID_Producto = iD_Producto;
             ID_Factura = iD_Factura;
@@ -29,6 +30,7 @@ namespace Logica.Models
             Descuento = descuento;
             Impuesto = impuesto;
             Total = total;
+            Estado = estado;
         }
 
         public Producto_Factura() { }
@@ -60,7 +62,19 @@ namespace Logica.Models
         }
         public bool Anular()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Producto", ID_Producto));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPProductoFacturaAnular");
+
+            if (retorno > 0)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public Factura ConsultarPorCliente()
         {

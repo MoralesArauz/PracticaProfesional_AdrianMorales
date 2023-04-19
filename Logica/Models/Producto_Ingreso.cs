@@ -53,7 +53,19 @@ namespace Logica.Models
         }
         public bool Eliminar()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Ingreso", ID_Ingreso));
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Producto", ID_Producto));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPProductoIngresoAnular");
+
+            if (retorno > 0)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public Producto_Ingreso ConsultarPorID()
         {
@@ -67,6 +79,16 @@ namespace Logica.Models
         {
             throw new System.Exception("Not implemented");
         }
+
+        public DataTable ListarDetalle(bool VerActivo = true)
+        {
+            DataTable R = new DataTable();
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Ingreso", ID_Ingreso));
+            R = MiCnn.DMLSelect("SPProductoIngresosDetalle");
+            return R;
+        }
+        
 
         public bool Consultar()
         {

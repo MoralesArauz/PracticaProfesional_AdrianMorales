@@ -127,12 +127,24 @@ namespace Esperanza.Forms
         // Llena el formulario con los datos del Ingreso seleccionado
         private void CargarIngreso()
         {
+            Text = MiIngreso.Estado ? "Ingreso Aprobado" : "Ingreso Anulado";
             lblIngreso.Text += MiIngreso.Numero_Ingreso;
             MiIngreso.MiUsuario = MiIngreso.MiUsuario.Consultar();
             lblUsuario.Text += MiIngreso.MiUsuario.Nombre + " " + MiIngreso.MiUsuario.Apellido;
             TxtTotal.Text = MiIngreso.Total.ToString("0,0.00", CultureInfo.InvariantCulture);
             TxtObservaciones.Text = MiIngreso.Observaciones;
             InactivarControles();
+            LlenarDetalleIngreso();
+        }
+
+        private void LlenarDetalleIngreso()
+        {
+            Logica.Models.Producto_Ingreso MiProducto_Ingreso = new Logica.Models.Producto_Ingreso();
+            MiProducto_Ingreso.ID_Ingreso = MiIngreso.ID_Ingreso;
+            DetalleIngresos = MiProducto_Ingreso.ListarDetalle();
+            DgvDetalleIngreso.DataSource = DetalleIngresos;
+            DgvDetalleIngreso.ClearSelection();
+            contextMenuStripIngresos.Enabled = false;
         }
 
         private void InactivarControles()
@@ -142,8 +154,13 @@ namespace Esperanza.Forms
             TxtCantidad.Enabled = false;
             BtnAgregarLinea.Enabled = false;
             BtnGuardar.Enabled = false;
-            btnAnular.Visible = true;
             TxtObservaciones.ReadOnly = true;
+            // Si el ingreso tiene como estado aprobado, se abilita el boton para anularlo, en caso contrario
+            // el boton se mantiene oculto
+            if (MiIngreso.Estado) 
+            {
+                btnAnular.Visible = true;
+            }
         }
 
         private void BtnAgregarLinea_Click(object sender, EventArgs e)
@@ -338,6 +355,31 @@ namespace Esperanza.Forms
 
                     MiIngreso.producto_Ingreso.RemoveAt(DgvDetalleIngreso.CurrentRow.Index);
                     DgvDetalleIngreso.Rows.RemoveAt(DgvDetalleIngreso.CurrentRow.Index);
+                }
+            }
+        }
+
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            DialogResult respuesta = MessageBox.Show("Esta seguro que desea anular el Ingreso?","Anulando Ingreso", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if(respuesta == DialogResult.Yes)
+            {
+                if (MiIngreso.Anular())
+                {
+                    MessageBox.Show("El ingreso se ha anulado correctamente", "Anulado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    foreach(Logica.Models.Producto_Ingreso productoLinea in MiIngreso.producto_Ingreso)
+                    {
+                        productoLinea.Eliminar();
+                    }
+                    CtrlPadre.LlenarListaIngresos();
+                    Text = "Ingreso Anulado";
+                    btnAnular.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido anular el ingreso", "Ha ocurrido un error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

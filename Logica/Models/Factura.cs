@@ -97,8 +97,32 @@ namespace Logica.Models
                 R.Fecha_Creacion = Convert.ToDateTime(Fila["Fecha_Creacion"]);
                 R.MiEstado.ID_Estado_Factura = Convert.ToInt32(Fila["ID_Estado_Factura"]);
                 R.Observaciones = Convert.ToString(Fila["Observaciones"]);
+                LlenarListaProductos(R);
+
             }
             return R;
+        }
+
+        private void LlenarListaProductos(Factura R)
+        {
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+
+            DataTable detalleFactura = MiCnn.DMLSelect("SPFacturaDetalleFactura");
+            foreach (DataRow fila in detalleFactura.Rows)
+            {
+                R.producto_Factura.Add(new Producto_Factura(
+                    Convert.ToInt32(fila["ID_Producto"]),
+                    Convert.ToInt32(fila["ID_Factura"]),
+                    Convert.ToDouble(fila["Cantidad"]),
+                    Convert.ToDouble(fila["Precio"]),
+                    Convert.ToDouble(fila["Costo"]),
+                    Convert.ToDouble(fila["Descuento"]),
+                    Convert.ToDouble(fila["Impuesto"]),
+                    Convert.ToDouble(fila["Total"]),
+                    Convert.ToBoolean(fila["Estado"])
+                    ));
+            }
         }
         public DataTable ConsultarPorCliente()
         {

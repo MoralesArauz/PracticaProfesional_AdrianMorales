@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,8 +49,25 @@ namespace Logica.Models
                 R.Fecha_Ingreso = Convert.ToDateTime(Fila["Fecha_Ingreso"]);
                 R.Estado = Convert.ToInt32(Fila["Estado"]) == 1;
                 R.Observaciones = Convert.ToString(Fila["Observaciones"]);
+                LlenarListaProductos(R);
             }
             return R;
+        }
+
+        private void LlenarListaProductos(Ingreso R)
+        {
+            Conexion MiCnn = new Conexion();
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID", R.ID_Ingreso));
+            DataTable detalleIngreso = MiCnn.DMLSelect("SPIngresoDetalleIngreso");
+            foreach(DataRow fila in detalleIngreso.Rows)
+            {
+                R.producto_Ingreso.Add(new Producto_Ingreso(
+                    Convert.ToInt32(fila["ID_Producto"]),
+                    Convert.ToInt32(fila["ID_Ingreso"]),
+                    Convert.ToDouble(fila["Cantidad"]),
+                    Convert.ToDouble(fila["Costo_Unitario"]),
+                    Convert.ToInt32(fila["Estado"]) == 1));
+            }
         }
         public Ingreso ConsultarPorUsuario()
         {
@@ -76,7 +94,19 @@ namespace Logica.Models
         }
         public bool Anular()
         {
-            throw new System.Exception("Not implemented");
+            bool R = false;
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Ingreso", ID_Ingreso));
+
+            int retorno = MiCnn.DMLUpdateDeleteInsert("SPIngresoAnular");
+
+            if (retorno > 0)
+            {
+                R = true;
+            }
+
+            return R;
         }
         public DataTable Listar(bool activo = true)
         {
