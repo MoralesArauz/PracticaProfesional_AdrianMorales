@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Esperanza.Reporting {
+namespace Esperanza.Reportes {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace Esperanza.Reporting {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class RptFactura : ReportClass {
+    public class CrystalReport1 : ReportClass {
         
-        public RptFactura() {
+        public CrystalReport1() {
         }
         
         public override string ResourceName {
             get {
-                return "RptFactura.rpt";
+                return "CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Esperanza.Reporting {
         
         public override string FullResourceName {
             get {
-                return "Esperanza.Reporting.RptFactura.rpt";
+                return "Esperanza.Reportes.CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,20 @@ namespace Esperanza.Reporting {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_ID_Factura {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRptFactura : Component, ICachedReport {
+    public class CachedCrystalReport1 : Component, ICachedReport {
         
-        public CachedRptFactura() {
+        public CachedCrystalReport1() {
         }
         
         [Browsable(false)]
@@ -129,7 +137,7 @@ namespace Esperanza.Reporting {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            RptFactura rpt = new RptFactura();
+            CrystalReport1 rpt = new CrystalReport1();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -301,7 +301,7 @@
     <None Include="Resources\agregar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Reporting\" />
+    <Folder Include="Reportes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\imagenes\default.png" />
