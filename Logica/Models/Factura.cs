@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -147,6 +148,30 @@ namespace Logica.Models
                 + "ID Cliente: " + MiCliente.ID_Cliente + "\n"
                 + "ID Usuario: " + MiUsuario.ID_Usuario + "\n"
                 + "Observaciones: " + Observaciones + "\n";
+        }
+
+        public ReportDocument ImprimirFactura(ReportDocument R)
+        {
+            ReportDocument Retorno = R;
+
+            Crystal ObjCR = new Crystal(Retorno);
+
+            DataTable DatosReporte = new DataTable();
+
+            Conexion MiCnn = new Conexion();
+
+            MiCnn.ListadoDeParametros.Add(new SqlParameter("@ID_Factura", ID_Factura));
+
+            DatosReporte = MiCnn.DMLSelect("SPFacturaReporte");
+
+            if (DatosReporte.Rows.Count > 0)
+            {
+                ObjCR.OrigenDeDatos = DatosReporte;
+            }
+
+            Retorno = ObjCR.GenerarReporte();
+
+            return Retorno;
         }
     }
 }

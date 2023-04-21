@@ -16,14 +16,14 @@ namespace Esperanza.Reportes {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport1 : ReportClass {
+    public class RptFactura : ReportClass {
         
-        public CrystalReport1() {
+        public RptFactura() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport1.rpt";
+                return "RptFactura.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Esperanza.Reportes {
         
         public override string FullResourceName {
             get {
-                return "Esperanza.Reportes.CrystalReport1.rpt";
+                return "Esperanza.Reportes.RptFactura.rpt";
             }
             set {
                 // Do nothing
@@ -98,9 +98,9 @@ namespace Esperanza.Reportes {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport1 : Component, ICachedReport {
+    public class CachedRptFactura : Component, ICachedReport {
         
-        public CachedCrystalReport1() {
+        public CachedRptFactura() {
         }
         
         [Browsable(false)]
@@ -137,7 +137,7 @@ namespace Esperanza.Reportes {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport1 rpt = new CrystalReport1();
+            RptFactura rpt = new RptFactura();
             rpt.Site = this.Site;
             return rpt;
         }

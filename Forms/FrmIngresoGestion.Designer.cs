@@ -65,6 +65,7 @@
             this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripIngresos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eliminarLineaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnImprimir = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -153,6 +154,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.btnImprimir);
             this.panel3.Controls.Add(this.btnAnular);
             this.panel3.Controls.Add(this.BtnAgregarLinea);
             this.panel3.Controls.Add(this.label5);
@@ -459,6 +461,22 @@
             this.eliminarLineaToolStripMenuItem.Text = "Eliminar Linea";
             this.eliminarLineaToolStripMenuItem.Click += new System.EventHandler(this.eliminarLineaToolStripMenuItem_Click);
             // 
+            // btnImprimir
+            // 
+            this.btnImprimir.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnImprimir.FlatAppearance.BorderSize = 0;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Location = new System.Drawing.Point(605, 16);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(174, 33);
+            this.btnImprimir.TabIndex = 11;
+            this.btnImprimir.Text = "Imprimir Ingreso";
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Visible = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
             // FrmIngresoGestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -527,5 +545,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CTotal;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripIngresos;
         private System.Windows.Forms.ToolStripMenuItem eliminarLineaToolStripMenuItem;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }

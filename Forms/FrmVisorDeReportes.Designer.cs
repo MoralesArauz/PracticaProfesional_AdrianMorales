@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.CrvVisor = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.SuspendLayout();
             // 
-            // crystalReportViewer1
+            // CrvVisor
             // 
-            this.crystalReportViewer1.ActiveViewIndex = -1;
-            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(726, 581);
-            this.crystalReportViewer1.TabIndex = 0;
-            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            this.CrvVisor.ActiveViewIndex = -1;
+            this.CrvVisor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CrvVisor.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CrvVisor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CrvVisor.Location = new System.Drawing.Point(0, 0);
+            this.CrvVisor.Name = "CrvVisor";
+            this.CrvVisor.Size = new System.Drawing.Size(726, 581);
+            this.CrvVisor.TabIndex = 0;
+            this.CrvVisor.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
             // FrmVisorDeReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 581);
-            this.Controls.Add(this.crystalReportViewer1);
+            this.Controls.Add(this.CrvVisor);
             this.Name = "FrmVisorDeReportes";
             this.Text = "FrmVisorDeReportes";
             this.ResumeLayout(false);
@@ -57,6 +57,6 @@
 
         #endregion
 
-        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer CrvVisor;
     }
 }

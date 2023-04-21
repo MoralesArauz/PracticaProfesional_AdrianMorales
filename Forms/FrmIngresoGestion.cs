@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using Logica.Models;
+using System;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
@@ -160,7 +162,9 @@ namespace Esperanza.Forms
             if (MiIngreso.Estado) 
             {
                 btnAnular.Visible = true;
+                
             }
+            btnImprimir.Visible = true;
         }
 
         private void BtnAgregarLinea_Click(object sender, EventArgs e)
@@ -382,6 +386,26 @@ namespace Esperanza.Forms
                     MessageBox.Show("No se ha podido anular el ingreso", "Ha ocurrido un error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+        private void ImprimirIngreso()
+        {
+            //Una vez ingresa la cita se procede a Imprimir un reporte 
+            ReportDocument Reporte = new ReportDocument();
+
+            Reporte = new Reportes.RptIngreso();
+
+            Reporte = MiIngreso.ImprimirIngreso(Reporte);
+
+            FrmVisorDeReportes VisorRpt = new FrmVisorDeReportes();
+
+            VisorRpt.CrvVisor.ReportSource = Reporte;
+
+
+            VisorRpt.Show();
+        }
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            ImprimirIngreso();
         }
     }
 }

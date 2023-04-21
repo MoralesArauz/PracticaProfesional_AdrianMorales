@@ -37,6 +37,7 @@
             this.lblVendedor = new System.Windows.Forms.Label();
             this.lblFactura = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnAnular = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.TxtImpuestoLinea = new System.Windows.Forms.TextBox();
             this.BtnAgregarLinea = new System.Windows.Forms.Button();
@@ -64,16 +65,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.TxtSubtotal = new System.Windows.Forms.TextBox();
             this.DgvDetalleFactura = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarLineaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAnular = new System.Windows.Forms.Button();
             this.CCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CImpuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarLineaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnImprimir = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -162,6 +163,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.BtnImprimir);
             this.panel3.Controls.Add(this.btnAnular);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.TxtImpuestoLinea);
@@ -181,6 +183,22 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1026, 114);
             this.panel3.TabIndex = 5;
+            // 
+            // btnAnular
+            // 
+            this.btnAnular.BackColor = System.Drawing.Color.Red;
+            this.btnAnular.FlatAppearance.BorderSize = 0;
+            this.btnAnular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnular.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnular.ForeColor = System.Drawing.Color.White;
+            this.btnAnular.Location = new System.Drawing.Point(785, 16);
+            this.btnAnular.Name = "btnAnular";
+            this.btnAnular.Size = new System.Drawing.Size(174, 26);
+            this.btnAnular.TabIndex = 5;
+            this.btnAnular.Text = "Anular Factura";
+            this.btnAnular.UseVisualStyleBackColor = false;
+            this.btnAnular.Visible = false;
+            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
             // 
             // label1
             // 
@@ -463,43 +481,6 @@
             this.DgvDetalleFactura.Size = new System.Drawing.Size(1020, 268);
             this.DgvDetalleFactura.TabIndex = 1;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editarToolStripMenuItem,
-            this.eliminarLineaToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 48);
-            // 
-            // editarToolStripMenuItem
-            // 
-            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.editarToolStripMenuItem.Text = "Editar linea";
-            // 
-            // eliminarLineaToolStripMenuItem
-            // 
-            this.eliminarLineaToolStripMenuItem.Name = "eliminarLineaToolStripMenuItem";
-            this.eliminarLineaToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.eliminarLineaToolStripMenuItem.Text = "Eliminar linea";
-            this.eliminarLineaToolStripMenuItem.Click += new System.EventHandler(this.eliminarLineaToolStripMenuItem_Click);
-            // 
-            // btnAnular
-            // 
-            this.btnAnular.BackColor = System.Drawing.Color.Red;
-            this.btnAnular.FlatAppearance.BorderSize = 0;
-            this.btnAnular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnular.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnular.ForeColor = System.Drawing.Color.White;
-            this.btnAnular.Location = new System.Drawing.Point(785, 16);
-            this.btnAnular.Name = "btnAnular";
-            this.btnAnular.Size = new System.Drawing.Size(174, 26);
-            this.btnAnular.TabIndex = 5;
-            this.btnAnular.Text = "Anular Factura";
-            this.btnAnular.UseVisualStyleBackColor = false;
-            this.btnAnular.Visible = false;
-            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
-            // 
             // CCodigo
             // 
             this.CCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -550,6 +531,43 @@
             this.CTotal.Name = "CTotal";
             this.CTotal.ReadOnly = true;
             this.CTotal.Width = 200;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editarToolStripMenuItem,
+            this.eliminarLineaToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 48);
+            // 
+            // editarToolStripMenuItem
+            // 
+            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.editarToolStripMenuItem.Text = "Editar linea";
+            // 
+            // eliminarLineaToolStripMenuItem
+            // 
+            this.eliminarLineaToolStripMenuItem.Name = "eliminarLineaToolStripMenuItem";
+            this.eliminarLineaToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.eliminarLineaToolStripMenuItem.Text = "Eliminar linea";
+            this.eliminarLineaToolStripMenuItem.Click += new System.EventHandler(this.eliminarLineaToolStripMenuItem_Click);
+            // 
+            // BtnImprimir
+            // 
+            this.BtnImprimir.BackColor = System.Drawing.Color.RoyalBlue;
+            this.BtnImprimir.FlatAppearance.BorderSize = 0;
+            this.BtnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnImprimir.ForeColor = System.Drawing.Color.White;
+            this.BtnImprimir.Location = new System.Drawing.Point(605, 16);
+            this.BtnImprimir.Name = "BtnImprimir";
+            this.BtnImprimir.Size = new System.Drawing.Size(174, 26);
+            this.BtnImprimir.TabIndex = 13;
+            this.BtnImprimir.Text = "Imprimir Factura";
+            this.BtnImprimir.UseVisualStyleBackColor = false;
+            this.BtnImprimir.Visible = false;
+            this.BtnImprimir.Click += new System.EventHandler(this.BtnImprimir_Click);
             // 
             // FrmFacturaGestion
             // 
@@ -629,5 +647,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CPrecio;
         private System.Windows.Forms.DataGridViewTextBoxColumn CImpuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTotal;
+        private System.Windows.Forms.Button BtnImprimir;
     }
 }

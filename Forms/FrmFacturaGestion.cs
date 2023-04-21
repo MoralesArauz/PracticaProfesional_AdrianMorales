@@ -1,4 +1,5 @@
 ﻿
+using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,6 +80,7 @@ namespace Esperanza.Forms
             if (MiFactura.MiEstado.ID_Estado_Factura == 1)
             {
                 btnAnular.Visible = true;
+                BtnImprimir.Visible = true;
             }
             LlenarDetalleFactura();
         }
@@ -379,6 +381,7 @@ namespace Esperanza.Forms
                     MessageBox.Show("La factura se agrego correctamente");
                     GuardarLineasFactura();
                     CtrlPadre.LlenarListaFacturas();
+                    ImprimirFactura();
                     Close(); // Se cierra el formulario de creacion de factura
                 }
                 else 
@@ -561,6 +564,28 @@ namespace Esperanza.Forms
                     MessageBox.Show("No se ha podido anular la factura", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ImprimirFactura()
+        {
+            //Una vez ingresa la cita se procede a Imprimir un reporte 
+            ReportDocument Reporte = new ReportDocument();
+
+            Reporte = new Reportes.RptFactura();
+
+            Reporte = MiFactura.ImprimirFactura(Reporte);
+
+            FrmVisorDeReportes VisorRpt = new FrmVisorDeReportes();
+
+            VisorRpt.CrvVisor.ReportSource = Reporte;
+            
+
+            VisorRpt.Show();
+        }
+
+        private void BtnImprimir_Click(object sender, EventArgs e)
+        {
+            ImprimirFactura();
         }
     }
 }
