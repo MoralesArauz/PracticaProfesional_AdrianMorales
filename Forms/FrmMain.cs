@@ -60,6 +60,14 @@ namespace Esperanza.Forms
 
             lblStripFecha.Text = DateTime.Now.ToString("D",
                   CultureInfo.CreateSpecificCulture("es-MX"));
+
+            if(Commons.ObjetosGlobales.MiUsuarioDeSistema.MiRol.IDRol != 1)
+            {
+                nuevoToolStripMenuItem.Enabled = false;
+                modificarToolStripMenuItem.Enabled = false;
+                clientesToolStripMenuItem.Enabled = false;
+                productosToolStripMenuItem.Enabled = false;
+            }
         }
       
 

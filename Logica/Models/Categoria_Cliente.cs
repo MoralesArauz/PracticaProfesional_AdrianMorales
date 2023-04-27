@@ -26,6 +26,14 @@ namespace Logica.Models
         public string Descripcion_Catergoria_Cliente { get; set; }
         public double Descuento_Permitido { get; set; } = 0;
 
+        public Cliente Cliente
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private Cliente[] cliente;
 
         // Metodos Heredados

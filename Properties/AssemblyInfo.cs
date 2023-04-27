@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Esperanza")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Este programa se creo como parte de la Práctica Profesional de la UMCA Palmares")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Adrián Morales")]
 [assembly: AssemblyProduct("Esperanza")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
